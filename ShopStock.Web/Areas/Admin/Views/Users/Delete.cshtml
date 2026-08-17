@@ -1,0 +1,97 @@
+﻿@model ShopStock.Domain.Models.Users.User
+
+@{
+    ViewData["Title"] = "حذف کاربر";
+}
+@{
+    string fullName = "";
+    if (Model.FirstName != null && Model.LastName != null)
+    {
+        fullName = $"{Model.FirstName} {Model.LastName}";
+    }
+    else
+    {
+        fullName = Model.UserName;
+    }
+}
+<h1>@ViewData["Title"] '@fullName'</h1>
+
+<h3>آیا از حذف کاربر '@fullName' مطمئن هستید؟</h3>
+<hr />
+<div class="row">
+    <div class="col-7">
+        <dl class="row">
+            <dt class="col-sm-2">
+                نام :
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                نام خانوادگی :
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class="col-sm-2">
+                نام کاربری :
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+            <dt class="col-sm-2">
+                ایمیل :
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                موبایل :
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Mobile)
+            </dd>
+            <dt class="col-sm-2">
+                کد ملی :
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NationalCode)
+            </dd>
+            <dt class="col-sm-2">
+                وضعیت :
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
+            <dt class="col-sm-2">
+                تاریخ ایجاد :
+            </dt>
+            <dd class="col-sm-10">
+                @Model.CreateDate.ToShamsi()
+            </dd>
+            @if (Model.UpdateDate != null)
+            {
+                <dt class="col-sm-2">
+                    تاریخ ویرایش :
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.UpdateDate?.ToShamsi()
+                </dd>
+            }
+            <dt class="col-sm-2">
+                نقش های کاربر
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.UserInRoles.Any()?string.Join(',', Model.UserInRoles.Select(r => r.Role.RoleName).ToList()):"کاربر عادی")
+            </dd>
+        </dl>
+    </div>
+    <div class="col-5">
+        <img src="~/Avatars/@Model.Avatar" class="img-thumbnail" />
+    </div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف کاربر" class="btn btn-danger" /> |
+        <a asp-action="Index">بازگشت به لیست</a>
+    </form>
+</div>

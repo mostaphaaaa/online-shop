@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "_EshopLayout";
+}
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-xl-3 col-lg-4 col-md-5 mb-md-0 mb-4">
+            <a href="https://digikala.com" target="_blank">
+                <img class="img-thumbnail m-2" src="https://dkstatics-public.digikala.com/digikala-adservice-banners/199c58445381af0e3325b7edf13b77de66fffcfd_1772019650.jpg?x-oss-process=image/quality,q_95" />
+            </a>
+            @await Component.InvokeAsync("UserPanel")
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7">
+            @await Component.InvokeAsync("IsCompleteProfile")
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function ShowpImage(input) {
+           if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                 $('#imgAvatar').attr('src', e.target.result);
+              }
+              reader.readAsDataURL(input.files[0]);
+           }
+        }
+
+
+    </script>
+}

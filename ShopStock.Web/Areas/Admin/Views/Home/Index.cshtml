@@ -1,0 +1,1281 @@
+﻿@{
+    ViewBag.Title = "داشبورد مدیریت";
+}
+
+
+                        <div class="row">
+                            <div class="col-lg-8 mb-4 order-0">
+                                <div class="card">
+                                    <div class="d-flex align-items-end row">
+                                        <div class="col-sm-7">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-primary">تبریک جان! 🎉</h5>
+                                                <p class="mb-4">
+                                                    شما امروز <span class="fw-bold">۷۲٪</span> فروش بیشتری داشته‌اید. نشان جدید خود را در
+                                                    پروفایل خود بررسی کنید.
+                                                </p>
+
+                                                <a href="javascript:;" class="btn btn-sm btn-label-primary">مشاهده نشان‌ها</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5 text-center text-sm-right">
+                                            <div class="card-body pb-0 px-0 px-md-4">
+                                                <img src="/AdminAssets/assets/img/illustrations/man-with-laptop-light.png"
+                                                     height="140"
+                                                     alt="View Badge User"
+                                                     data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                                     data-app-light-img="illustrations/man-with-laptop-light.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 order-1">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body pb-0">
+                                                <span class="d-block fw-semibold mb-1">سفارش</span>
+                                                <h3 class="card-title mb-1">۲۷۶ هزار</h3>
+                                            </div>
+                                            <div id="orderChart" class="mb-3"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <img src="/AdminAssets/assets/img/icons/unicons/wallet-info.png"
+                                                             alt="Credit Card"
+                                                             class="rounded" />
+                                                    </div>
+                                                    <div class="dropdown">
+                                                        <button class="btn p-0"
+                                                                type="button"
+                                                                id="cardOpt6"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-start" aria-labelledby="cardOpt6">
+                                                            <a class="dropdown-item" href="javascript:void(0);">مشاهده بیشتر</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">حذف</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span>فروش</span>
+                                                <h3 class="card-title text-nowrap mb-1">۴۶,۷۹۰,۰۰۰ ریال</h3>
+                                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> ۲۸.۴۲٪+</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total Revenue -->
+                            <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                                <div class="card">
+                                    <div class="row row-bordered g-0">
+                                        <div class="col-md-8">
+                                            <h5 class="card-header m-0 ms-2 pb-3">درآمد کل</h5>
+                                            <div id="totalRevenueChart" class="px-2"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card-body">
+                                                <div class="text-center">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-label-primary dropdown-toggle"
+                                                                type="button"
+                                                                id="growthReportId"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                            ۱۴۰۱
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-start" aria-labelledby="growthReportId">
+                                                            <a class="dropdown-item" href="javascript:void(0);">۱۴۰۰</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">۱۳۹۹</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">۱۳۹۸</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="growthChart"></div>
+                                            <div class="text-center fw-semibold pt-3 mb-2">۶۲٪ رشد شرکت</div>
+
+                                            <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
+                                                <div class="d-flex">
+                                                    <div class="ms-2">
+                                                        <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
+                                                    </div>
+                                                    <div class="d-flex flex-column">
+                                                        <small>۱۴۰۱</small>
+                                                        <h6 class="mb-0">۳۲۵,۰۰۰ ریال</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <div class="ms-2">
+                                                        <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
+                                                    </div>
+                                                    <div class="d-flex flex-column">
+                                                        <small>۱۴۰۰</small>
+                                                        <h6 class="mb-0">۴۱۲,۰۰۰ ریال</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Total Revenue -->
+                            <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                                <div class="row">
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <img src="/AdminAssets/assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                                                    </div>
+                                                    <div class="dropdown">
+                                                        <button class="btn p-0"
+                                                                type="button"
+                                                                id="cardOpt4"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-start" aria-labelledby="cardOpt4">
+                                                            <a class="dropdown-item" href="javascript:void(0);">مشاهده بیشتر</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);">حذف</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span class="d-block mb-1">پرداخت‌ها</span>
+                                                <h3 class="card-title text-nowrap mb-2">۲,۴۵۶,۰۰۰ ریال</h3>
+                                                <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> ۱۴.۸۲٪-</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body pb-2">
+                                                <span class="d-block fw-semibold mb-1">درآمد</span>
+                                                <h3 class="card-title mb-1">۴۲۵ هزار</h3>
+                                                <div id="revenueChart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </div>
+                                    <div class="row"> -->
+                                    <div class="col-12 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                                                    <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                                                        <div class="card-title">
+                                                            <h5 class="text-nowrap mb-2">گزارش پروفایل</h5>
+                                                            <span class="badge bg-label-warning rounded-pill">سال ۱۴۰۰</span>
+                                                        </div>
+                                                        <div class="mt-sm-auto">
+                                                            <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> ۶۸.۲٪</small>
+                                                            <h3 class="mb-0">۸۴,۶۸۶,۰۰۰ ریال</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div id="profileReportChart"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Order Statistics -->
+                            <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                                        <div class="card-title mb-0">
+                                            <h5 class="m-0 ms-2">آمار سفارشات</h5>
+                                            <small class="text-muted">۴۲.۸۲ هزار فروش کل</small>
+                                        </div>
+                                        <div class="dropdown">
+                                            <button class="btn p-0"
+                                                    type="button"
+                                                    id="orederStatistics"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-start" aria-labelledby="orederStatistics">
+                                                <a class="dropdown-item" href="javascript:void(0);">انتخاب همه</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">بارگذاری مجدد</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">اشتراک‌گذاری</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div class="d-flex flex-column align-items-center gap-1">
+                                                <h2 class="mb-2">۸,۲۵۸</h2>
+                                                <span>کل سفارشات</span>
+                                            </div>
+                                            <div id="orderStatisticsChart"></div>
+                                        </div>
+                                        <ul class="p-0 m-0">
+                                            <li class="d-flex mb-4 pb-1">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <span class="avatar-initial rounded bg-label-primary">
+                                                        <i class="bx bx-mobile-alt"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <h6 class="mb-0">الکترونیکی</h6>
+                                                        <small class="text-muted">موبایل، هندزفری، تلویزیون</small>
+                                                    </div>
+                                                    <div class="user-progress">
+                                                        <small class="fw-semibold">۸۲.۵ هزار</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex mb-4 pb-1">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <h6 class="mb-0">مد و پوشاک</h6>
+                                                        <small class="text-muted">تی‌شرت، شلوار جین، کفش</small>
+                                                    </div>
+                                                    <div class="user-progress">
+                                                        <small class="fw-semibold">۲۳.۸ هزار</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex mb-4 pb-1">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <h6 class="mb-0">دکوراسیون</h6>
+                                                        <small class="text-muted">هنرهای زیبا، غذاخوری</small>
+                                                    </div>
+                                                    <div class="user-progress">
+                                                        <small class="fw-semibold">۸۴۹ هزار</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <span class="avatar-initial rounded bg-label-secondary">
+                                                        <i class="bx bx-football"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <h6 class="mb-0">ورزشی</h6>
+                                                        <small class="text-muted">فوتبال، کیت کریکت</small>
+                                                    </div>
+                                                    <div class="user-progress">
+                                                        <small class="fw-semibold">۹۹</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Order Statistics -->
+                            <!-- Expense Overview -->
+                            <div class="col-md-6 col-lg-4 order-1 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header">
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li class="nav-item">
+                                                <button type="button"
+                                                        class="nav-link active"
+                                                        role="tab"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#navs-tabs-line-card-income"
+                                                        aria-controls="navs-tabs-line-card-income"
+                                                        aria-selected="true">
+                                                    درآمد
+                                                </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button type="button" class="nav-link" role="tab">هزینه‌ها</button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button type="button" class="nav-link" role="tab">سود</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <div class="tab-content p-0">
+                                            <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
+                                                <div class="d-flex p-4 pt-3">
+                                                    <div class="avatar flex-shrink-0 ms-3">
+                                                        <img src="/AdminAssets/assets/img/icons/unicons/wallet.png" alt="User" />
+                                                    </div>
+                                                    <div>
+                                                        <small class="text-muted d-block">موجودی کل</small>
+                                                        <div class="d-flex align-items-center">
+                                                            <h6 class="mb-0 ms-1">۴,۵۹۱,۰۰۰ ریال</h6>
+                                                            <small class="text-success fw-semibold">
+                                                                <i class="bx bx-chevron-up"></i>
+                                                                ۴۲.۹٪
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="incomeChart"></div>
+                                                <div class="d-flex justify-content-center pt-4 gap-2">
+                                                    <div class="flex-shrink-0">
+                                                        <div id="expensesOfWeek"></div>
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-n1 mt-1">هزینه‌های این هفته</p>
+                                                        <small class="text-muted">۳۹,۰۰۰ ریال کمتر از هفته گذشته</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Expense Overview -->
+                            <!-- Transactions -->
+                            <div class="col-md-6 col-lg-4 order-2 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header d-flex align-items-center justify-content-between">
+                                        <h5 class="card-title m-0 ms-2">تراکنش‌ها</h5>
+                                        <div class="dropdown">
+                                            <button class="btn p-0"
+                                                    type="button"
+                                                    id="transactionID"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-start" aria-labelledby="transactionID">
+                                                <a class="dropdown-item" href="javascript:void(0);">۲۸ روز گذشته</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">ماه گذشته</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">سال گذشته</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="p-0 m-0">
+                                            <li class="d-flex mb-4 pb-1">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <img src="/AdminAssets/assets/img/icons/unicons/paypal.png" alt="User" class="rounded" />
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <small class="text-muted d-block mb-1">پی‌پال</small>
+                                                        <h6 class="mb-0">ارسال پول</h6>
+                                                    </div>
+                                                    <div class="user-progress d-flex align-items-center gap-1">
+                                                        <h6 class="mb-0">+۸۲۶,۰۰۰</h6>
+                                                        <span class="text-muted">ریال</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex mb-4 pb-1">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <img src="/AdminAssets/assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <small class="text-muted d-block mb-1">کیف پول</small>
+                                                        <h6 class="mb-0">مک‌دونالد</h6>
+                                                    </div>
+                                                    <div class="user-progress d-flex align-items-center gap-1">
+                                                        <h6 class="mb-0">+۲,۷۰۶,۹۰۰</h6>
+                                                        <span class="text-muted">ریال</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex mb-4 pb-1">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <img src="/AdminAssets/assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <small class="text-muted d-block mb-1">انتقال</small>
+                                                        <h6 class="mb-0">بازپرداخت</h6>
+                                                    </div>
+                                                    <div class="user-progress d-flex align-items-center gap-1">
+                                                        <h6 class="mb-0">+۶,۳۷۹,۱۰۰</h6>
+                                                        <span class="text-muted">ریال</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex mb-4 pb-1">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <img src="/AdminAssets/assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <small class="text-muted d-block mb-1">کارت اعتباری</small>
+                                                        <h6 class="mb-0">سفارش غذا</h6>
+                                                    </div>
+                                                    <div class="user-progress d-flex align-items-center gap-1">
+                                                        <h6 class="mb-0">-۸,۳۸۷,۱۰۰</h6>
+                                                        <span class="text-muted">ریال</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex mb-4 pb-1">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <img src="/AdminAssets/assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <small class="text-muted d-block mb-1">کیف پول</small>
+                                                        <h6 class="mb-0">استارباکس</h6>
+                                                    </div>
+                                                    <div class="user-progress d-flex align-items-center gap-1">
+                                                        <h6 class="mb-0">+۲,۰۳۳,۳۰۰</h6>
+                                                        <span class="text-muted">ریال</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex">
+                                                <div class="avatar flex-shrink-0 ms-3">
+                                                    <img src="/AdminAssets/assets/img/icons/unicons/cc-warning.png" alt="User" class="rounded" />
+                                                </div>
+                                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                    <div class="ms-2">
+                                                        <small class="text-muted d-block mb-1">مسترکارت</small>
+                                                        <h6 class="mb-0">سفارش غذا</h6>
+                                                    </div>
+                                                    <div class="user-progress d-flex align-items-center gap-1">
+                                                        <h6 class="mb-0">-۹۲۴,۵۰۰</h6>
+                                                        <span class="text-muted">ریال</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Transactions -->
+                            <!-- Activity Timeline -->
+                            <div class="col-md-12 col-lg-6 order-4 order-lg-3">
+                                <div class="card">
+                                    <div class="card-header d-flex align-items-center justify-content-between">
+                                        <h5 class="card-title m-0 ms-2">خط زمانی فعالیت</h5>
+                                        <div class="dropdown">
+                                            <button class="btn p-0"
+                                                    type="button"
+                                                    id="timelineWapper"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-start" aria-labelledby="timelineWapper">
+                                                <a class="dropdown-item" href="javascript:void(0);">انتخاب همه</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">بارگذاری مجدد</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">اشتراک‌گذاری</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Activity Timeline -->
+                                        <ul class="timeline">
+                                            <li class="timeline-item timeline-item-transparent">
+                                                <span class="timeline-point timeline-point-primary"></span>
+                                                <div class="timeline-event">
+                                                    <div class="timeline-header mb-1">
+                                                        <h6 class="mb-0">۱۲ فاکتور پرداخت شده است</h6>
+                                                        <small class="text-muted">۱۲ دقیقه پیش</small>
+                                                    </div>
+                                                    <p class="mb-2">فاکتورها به شرکت پرداخت شده‌اند</p>
+                                                    <div class="d-flex">
+                                                        <a href="javascript:void(0)" class="d-flex align-items-center ms-3">
+                                                            <img src="/AdminAssets/assets/img/icons/misc/pdf.png"
+                                                                 alt="PDF image"
+                                                                 width="23"
+                                                                 class="ms-2" />
+                                                            <h6 class="mb-0">فاکتورها.pdf</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="timeline-item timeline-item-transparent">
+                                                <span class="timeline-point timeline-point-warning"></span>
+                                                <div class="timeline-event">
+                                                    <div class="timeline-header mb-1">
+                                                        <h6 class="mb-0">جلسه با مشتری</h6>
+                                                        <small class="text-muted">۴۵ دقیقه پیش</small>
+                                                    </div>
+                                                    <p class="mb-2">جلسه پروژه با جان در ساعت ۱۰:۱۵ صبح</p>
+                                                    <div class="d-flex flex-wrap">
+                                                        <div class="avatar ms-3">
+                                                            <img src="/AdminAssets/assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" />
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">لستر مک‌کارتی (مشتری)</h6>
+                                                            <span>مدیر عامل ThemeSelection</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="timeline-item timeline-item-transparent">
+                                                <span class="timeline-point timeline-point-info"></span>
+                                                <div class="timeline-event pb-0">
+                                                    <div class="timeline-header mb-1">
+                                                        <h6 class="mb-0">ایجاد پروژه جدید برای مشتری</h6>
+                                                        <small class="text-muted">۲ روز پیش</small>
+                                                    </div>
+                                                    <p class="mb-2">۵ عضو تیم در یک پروژه</p>
+                                                    <div class="d-flex align-items-center avatar-group">
+                                                        <div class="avatar pull-up"
+                                                             data-bs-toggle="tooltip"
+                                                             data-popup="tooltip-custom"
+                                                             data-bs-placement="top"
+                                                             title="وینی موستووی">
+                                                            <img src="/AdminAssets/assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                                                        </div>
+                                                        <div class="avatar pull-up"
+                                                             data-bs-toggle="tooltip"
+                                                             data-popup="tooltip-custom"
+                                                             data-bs-placement="top"
+                                                             title="ماری پتی">
+                                                            <img src="/AdminAssets/assets/img/avatars/12.png" alt="Avatar" class="rounded-circle" />
+                                                        </div>
+                                                        <div class="avatar pull-up"
+                                                             data-bs-toggle="tooltip"
+                                                             data-popup="tooltip-custom"
+                                                             data-bs-placement="top"
+                                                             title="جیمی جکسون">
+                                                            <img src="/AdminAssets/assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" />
+                                                        </div>
+                                                        <div class="avatar pull-up"
+                                                             data-bs-toggle="tooltip"
+                                                             data-popup="tooltip-custom"
+                                                             data-bs-placement="top"
+                                                             title="کریستین گیل">
+                                                            <img src="/AdminAssets/assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                                                        </div>
+                                                        <div class="avatar pull-up"
+                                                             data-bs-toggle="tooltip"
+                                                             data-popup="tooltip-custom"
+                                                             data-bs-placement="top"
+                                                             title="نلسون ویلسون">
+                                                            <img src="/AdminAssets/assets/img/avatars/14.png" alt="Avatar" class="rounded-circle" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="timeline-end-indicator">
+                                                <i class="bx bx-check-circle"></i>
+                                            </li>
+                                        </ul>
+                                        <!-- /Activity Timeline -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Activity Timeline -->
+                            <!-- pill table -->
+                            <div class="col-md-6 order-3 order-lg-4 mb-4 mb-lg-0">
+                                <div class="card text-center">
+                                    <div class="card-header py-3">
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li class="nav-item">
+                                                <button type="button"
+                                                        class="nav-link active"
+                                                        role="tab"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#navs-pills-browser"
+                                                        aria-controls="navs-pills-browser"
+                                                        aria-selected="true">
+                                                    مرورگر
+                                                </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button type="button"
+                                                        class="nav-link"
+                                                        role="tab"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#navs-pills-os"
+                                                        aria-controls="navs-pills-os"
+                                                        aria-selected="false">
+                                                    سیستم عامل
+                                                </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button type="button"
+                                                        class="nav-link"
+                                                        role="tab"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#navs-pills-country"
+                                                        aria-controls="navs-pills-country"
+                                                        aria-selected="false">
+                                                    کشور
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content pt-0">
+                                        <div class="tab-pane fade show active" id="navs-pills-browser" role="tabpanel">
+                                            <div class="table-responsive text-end">
+                                                <table class="table table-borderless text-nowrap">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ردیف</th>
+                                                            <th>مرورگر</th>
+                                                            <th>بازدیدها</th>
+                                                            <th class="w-50">داده به درصد</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>۱</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/chrome.png"
+                                                                         alt="Chrome"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>کروم</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۸.۹۲ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-success"
+                                                                             role="progressbar"
+                                                                             style="width: 84.75%"
+                                                                             aria-valuenow="84.75"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۸۴.۷۵٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۲</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/safari.png"
+                                                                         alt="Safari"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>سافاری</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۷.۲۹ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-primary"
+                                                                             role="progressbar"
+                                                                             style="width: 72.43%"
+                                                                             aria-valuenow="72.43"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۷۲.۴۳٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۳</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/firefox.png"
+                                                                         alt="Firefox"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>فایرفاکس</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۶.۱۱ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-primary"
+                                                                             role="progressbar"
+                                                                             style="width: 67.37%"
+                                                                             aria-valuenow="67.37"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۶۷.۳۷٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۴</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/edge.png"
+                                                                         alt="Edge"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>اج</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۵.۰۸ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-info"
+                                                                             role="progressbar"
+                                                                             style="width: 60.12%"
+                                                                             aria-valuenow="60.12"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۶۰.۱۲٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۵</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/opera.png"
+                                                                         alt="Opera"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>اپرا</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۳.۹۳ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-info"
+                                                                             role="progressbar"
+                                                                             style="width: 51.94%"
+                                                                             aria-valuenow="51.94"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۵۱.۹۴٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۶</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/brave.png"
+                                                                         alt="Brave"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>بریو</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۳.۱۹ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-warning"
+                                                                             role="progressbar"
+                                                                             style="width: 39.94%"
+                                                                             aria-valuenow="39.94"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۳۹.۹۴٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۷</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/vivaldi.png"
+                                                                         alt="Vivaldi"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>ویوالدی</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۱.۲۹ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-danger"
+                                                                             role="progressbar"
+                                                                             style="width: 28.43%"
+                                                                             aria-valuenow="28.43"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۱۸.۴۳٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۸</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/uc.png"
+                                                                         alt="UC Browser"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>مرورگر UC</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۳۲۸</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-danger"
+                                                                             role="progressbar"
+                                                                             style="width: 20.14%"
+                                                                             aria-valuenow="20.14"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۲۰.۱۴٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="navs-pills-os" role="tabpanel">
+                                            <div class="table-responsive text-end">
+                                                <table class="table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ردیف</th>
+                                                            <th>سیستم</th>
+                                                            <th>بازدیدها</th>
+                                                            <th class="w-50">داده به درصد</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>۱</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/windows.png"
+                                                                         alt="Windows"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>ویندوز</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۸۷۵.۲۴ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-success"
+                                                                             role="progressbar"
+                                                                             style="width: 71.5%"
+                                                                             aria-valuenow="71.50"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۷۱.۵۰٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۲</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/mac.png"
+                                                                         alt="Mac"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>مک</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۸۹.۶۸ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-primary"
+                                                                             role="progressbar"
+                                                                             style="width: 66.67%"
+                                                                             aria-valuenow="66.67"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۶۶.۶۷٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۳</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/ubuntu.png"
+                                                                         alt="Ubuntu"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>اوبونتو</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۳۷.۶۸ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-info"
+                                                                             role="progressbar"
+                                                                             style="width: 62.82%"
+                                                                             aria-valuenow="62.82"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۶۲.۸۲٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۴</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/chrome.png"
+                                                                         alt="Chrome"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>کروم</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۳۵.۳۴ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-info"
+                                                                             role="progressbar"
+                                                                             style="width: 56.25%"
+                                                                             aria-valuenow="56.25"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۵۶.۲۵٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۵</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/cent.png"
+                                                                         alt="Cent"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>سنت</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۳۲.۲۵ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-info"
+                                                                             role="progressbar"
+                                                                             style="width: 42.76%"
+                                                                             aria-valuenow="42.76"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۴۲.۷۶٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۶</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/linux.png"
+                                                                         alt="Linux"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>لینوکس</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۲۲.۱۵ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-warning"
+                                                                             role="progressbar"
+                                                                             style="width: 37.77%"
+                                                                             aria-valuenow="37.77"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۳۷.۷۷٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۷</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/fedora.png"
+                                                                         alt="Fedora"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>فدورا</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۱.۱۳ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-danger"
+                                                                             role="progressbar"
+                                                                             style="width: 29.16%"
+                                                                             aria-valuenow="29.16"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۲۹.۱۶٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۸</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/img/icons/brands/vivaldi-os.png"
+                                                                         alt="Vivaldi"
+                                                                         height="24"
+                                                                         class="ms-2" />
+                                                                    <span>ویوالدی</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۱.۰۹ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-danger"
+                                                                             role="progressbar"
+                                                                             style="width: 26.26%"
+                                                                             aria-valuenow="26.26"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۲۶.۲۶٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="navs-pills-country" role="tabpanel">
+                                            <div class="table-responsive text-end">
+                                                <table class="table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ردیف</th>
+                                                            <th>کشور</th>
+                                                            <th>بازدیدها</th>
+                                                            <th class="w-50">داده به درصد</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>۱</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/svg/flags/us.svg" alt="USA" height="24" class="ms-2" />
+                                                                    <span>آمریکا</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۸۷.۲۴ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-success"
+                                                                             role="progressbar"
+                                                                             style="width: 89.12%"
+                                                                             aria-valuenow="89.12"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۸۹.۱۲٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۲</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/svg/flags/br.svg" alt="Brazil" height="24" class="ms-2" />
+                                                                    <span>برزیل</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۶۲.۶۸ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-primary"
+                                                                             role="progressbar"
+                                                                             style="width: 78.23%"
+                                                                             aria-valuenow="78.23"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۷۸.۲۳٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۳</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/svg/flags/in.svg" alt="India" height="24" class="ms-2" />
+                                                                    <span>هند</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۵۲.۵۸ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-info"
+                                                                             role="progressbar"
+                                                                             style="width: 69.82%"
+                                                                             aria-valuenow="69.82"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۶۹.۸۲٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۴</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/svg/flags/au.svg" alt="Australia" height="24" class="ms-2" />
+                                                                    <span>استرالیا</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۴۴.۱۳ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-warning"
+                                                                             role="progressbar"
+                                                                             style="width: 59.9%"
+                                                                             aria-valuenow="59.90"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۵۹.۹۰٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۵</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/svg/flags/de.svg" alt="Germany" height="24" class="ms-2" />
+                                                                    <span>آلمان</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۳۲.۲۱ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-warning"
+                                                                             role="progressbar"
+                                                                             style="width: 57.11%"
+                                                                             aria-valuenow="57.11"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۵۷.۱۱٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۶</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/svg/flags/fr.svg" alt="France" height="24" class="ms-2" />
+                                                                    <span>فرانسه</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۳۷.۸۷ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-warning"
+                                                                             role="progressbar"
+                                                                             style="width: 41.23%"
+                                                                             aria-valuenow="41.23"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۴۱.۲۳٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۷</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/svg/flags/pt.svg" alt="Portugal" height="24" class="ms-2" />
+                                                                    <span>پرتغال</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۲۰.۲۹ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-danger"
+                                                                             role="progressbar"
+                                                                             style="width: 37.11%"
+                                                                             aria-valuenow="37.11"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۳۷.۱۱٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>۸</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <img src="/AdminAssets/assets/svg/flags/cn.svg" alt="China" height="24" class="ms-2" />
+                                                                    <span>چین</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>۱۲.۲۱ هزار</td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                                    <div class="progress w-100" style="height: 10px">
+                                                                        <div class="progress-bar bg-danger"
+                                                                             role="progressbar"
+                                                                             style="width: 17.61%"
+                                                                             aria-valuenow="17.61"
+                                                                             aria-valuemin="0"
+                                                                             aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <small class="fw-semibold">۱۷.۶۱٪</small>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ pill table -->
+                        </div>

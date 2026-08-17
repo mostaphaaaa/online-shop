@@ -1,0 +1,446 @@
+﻿@using ShopStock.Domain.ViewModels.User
+@model AdminFilterUserViewModel
+
+@{
+    ViewData["Title"] = "لیست کاربران";
+    ViewBag.Url = "/Admin/Users";
+}
+
+<style>
+    .hidden {
+        display: none !important;
+    }
+
+    /* بک‌گراند شیشه‌ای */
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        backdrop-filter: blur(12px);
+        background: rgba(0,0,0,0.35);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        animation: fadeIn .25s ease;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* خود باکس مودال */
+    .modal-box {
+        width: 360px;
+        padding: 25px;
+        text-align: center;
+        color: #fff;
+        background: rgba(255,255,255,0.10);
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.3);
+        backdrop-filter: blur(25px);
+        box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.4);
+        animation: popup .25s ease forwards;
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+        .modal-box h3 {
+            color: #ff6b6b; /* رنگ قرمز ملایم */
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+    @@keyframes popup {
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .modal-actions {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* دکمه حذف (گرادینت) */
+    .btn-gradient {
+        flex: 1;
+        margin-right: 5px;
+        background: linear-gradient(135deg, #ff4d4d, #ff9068);
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: none;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+        .btn-gradient:hover {
+            transform: scale(1.05);
+        }
+
+    /* دکمه انصراف */
+    .btn-cancel {
+        flex: 1;
+        margin-left: 5px;
+        margin-right: 10px;
+        background: rgba(255,255,255,0.25);
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.4);
+        color: white;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+        .btn-cancel:hover {
+            background: rgba(255,255,255,0.35);
+        }
+
+    .fade-out-row {
+        transition: opacity 1s ease, height 1s ease;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    /* حالت اولیه ردیف‌ها (برای اینکه انیمیشن درست جواب بده) */
+    table tr {
+        transition: background-color 0.3s ease;
+    }
+
+    /* مرحله ۱: هشدار – قرمز ملایم */
+    .row-warning {
+        background-color: rgba(255, 80, 80, 0.15);
+    }
+
+    /* مرحله ۲: جمع شدن از دو طرف + محو شدن */
+    .row-collapse {
+        /* برای افکت جمع شدن از دو طرف */
+        position: relative;
+        overflow: hidden;
+        animation: rowCollapseAnim 0.9s ease forwards;
+    }
+
+    /* کل محتوا درون ردیف را هدف می‌گیریم تا وسط کمی فاصله بماند */
+    .row-collapse td {
+        position: relative;
+    }
+
+    /* افکت: دو طرف جمع می‌شوند، وسط کمی فاصله می‌ماند، بعد همه‌چیز محو می‌شود */
+    @@keyframes rowCollapseAnim {
+        0% {
+            background-color: rgba(255, 80, 80, 0.15); /* هشدار قرمز */
+            opacity: 1;
+        }
+
+        40% {
+            background-color: rgba(255, 80, 80, 0.28);
+        }
+
+        60% {
+            /* ایجاد فاصله وسط (با استفاده از padding و scale) */
+            transform: scaleX(0.75); /* دو طرف جمع می‌شن */
+            opacity: 0.9;
+        }
+
+        80% {
+            transform: scaleX(0.4); /* بیشتر جمع شدن */
+            opacity: 0.6;
+        }
+
+        100% {
+            transform: scaleX(0.2); /* تقریبا وسط جمع شده */
+            opacity: 0; /* محو کامل */
+            height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin: 0;
+        }
+    }
+    /* حالت اولیه ردیف‌ها */
+    table tr {
+        transition: background-color 0.3s ease;
+    }
+
+    /* مرحله ۱: هشدار – خط قرمز ملایم */
+    .row-warning {
+        background-color: rgba(255, 80, 80, 0.15);
+        /* اینجا میشه یه خط قرمز هم اضافه کرد اگه خواستی */
+        /* border-bottom: 2px solid rgba(255, 0, 0, 0.4); */
+    }
+
+    /* مرحله ۲: جمع شدن از پایین به بالا و محو شدن */
+    .row-collapse-bottom-up {
+        animation: rowCollapseBottomUpAnim 0.9s ease forwards;
+        overflow: hidden; /* برای اینکه خط قرمز موقع جمع شدن بیرون نزنه */
+    }
+
+    /* انیمیشن جمع شدن از پایین */
+    @@keyframes rowCollapseBottomUpAnim {
+        0% {
+            background-color: rgba(255, 80, 80, 0.15);
+            opacity: 1;
+            /* شروع با ارتفاع کامل */
+            clip-path: inset(0 0 0 0); /* همه چیز دیده میشه */
+        }
+
+        70% {
+            background-color: rgba(255, 80, 80, 0.28);
+            opacity: 1;
+            /* انگار از پایین جمع میشه */
+            clip-path: inset(50% 0 0 0); /* بالا تا وسط */
+        }
+
+        90% {
+            opacity: 0.8;
+            /* تقریبا کامل جمع شده */
+            clip-path: inset(100% 0 0 0); /* فقط بخش پایین */
+        }
+
+        100% {
+            opacity: 0;
+            clip-path: inset(100% 0 0 0); /* کاملا جمع شده */
+            height: 0; /* مطمئن میشیم که ارتفاع هم صفر میشه */
+        }
+    }
+</style>
+
+<div id="deleteModal" class="modal-overlay hidden">
+    <div class="modal-box">
+        <h3>آیا از حذف این مورد مطمئن هستید؟</h3>
+
+        <div class="modal-actions">
+            <button id="confirmDelete" class="btn-gradient">بله حذف کن</button>
+            <button id="cancelDelete" class="btn-cancel" style="margin-right:2px;">انصراف</button>
+        </div>
+    </div>
+</div>
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-success me-sm-3 me-1">افزودن کاربر جدید</a>
+</p>
+<div class="row">
+    <div class="row">
+        <div class="card mb-2">
+            <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="m-0">فیلترها</h5>
+                <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#filterCardBody" aria-expanded="false" aria-controls="filterCardBody">
+                    @* <i class="bi bi-chevron-down"></i> *@
+                    Open
+                </button>
+            </div>
+            <div class="collapse" id="filterCardBody">
+                <form asp-action="Index" method="get" id="filter-search">
+                    <input asp-for="PageId" type="hidden" id="PageId" />
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="FirstName" class="form-label"></label>
+                                <input asp-for="FirstName" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="LastName" class="form-label"></label>
+                                <input asp-for="LastName" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="UserName" class="form-label"></label>
+                                <input asp-for="UserName" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">جستجو</button>
+                            <a asp-action="Index" class="btn btn-label-secondary">حذف</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if (ViewBag.Create == "Success")
+        {
+            <div class="alert alert-success">
+                <h6>کاربر با موفقیت ثبت شد</h6>
+            </div>
+        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        آواتار
+                    </th>
+                    <th>
+                        نام
+                    </th>
+                    <th>
+                        نام خانوادگی
+                    </th>
+                    <th>
+                        نام کاربری
+                    </th>
+                    <th>
+                        ایمیل
+                    </th>
+                    <th>
+                        موبایل
+                    </th>
+                    <th>
+                        فعال / غیر فعال
+                    </th>
+                    <th>
+                        تاریخ ایجاد / ویرایش
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Entities)
+                {
+                    <tr data-row="@item.Id" style='@(item.IsDelete ? "color:red" : "")'>
+                        <td>
+                            <img src="/Avatars/@item.Avatar" class="user-profile-img" style="max-width: 75px;border-radius: 15px;" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mobile)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            @item.CreateDate.ToShamsi()
+                            <br />
+                            @item.UpdateDate?.ToShamsi()
+                        </td>
+                        <td>
+                        <td>
+                            <a class="btn rounded-pill btn-label-warning" asp-area="Admin" asp-controller="Users" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
+                            <!-- این دکمه حذف جدید برای مودال -->
+                            <button class="btn rounded-pill btn-label-danger delete-btn" data-id="@item.Id">
+                                حذف
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<partial name="_AdminPagination" model="@Model.GetCurrentPaging()" />
+@Html.AntiForgeryToken()
+@section Scripts {
+    <script>
+        let deleteId = null;
+
+        document.querySelectorAll(".delete-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                deleteId = this.getAttribute("data-id");
+                document.getElementById("deleteModal").classList.remove("hidden");
+            });
+        });
+
+        document.getElementById("cancelDelete").addEventListener("click", function () {
+            document.getElementById("deleteModal").classList.add("hidden");
+        });
+
+        document.getElementById("confirmDelete").addEventListener("click", function () {
+            // دریافت توکن CSRF
+            const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+            if (!token) {
+                console.warn("CSRF token not found");
+            }
+
+            fetch(`/Admin/Users/Delete/${deleteId}`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': token || '',
+                    'X-Requested-With': 'XMLHttpRequest'  // ← این خط رو اضافه کن
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                // بررسی ریدایرکت
+                if (response.redirected) {
+                    window.location.href = response.url;
+                    return null;
+                }
+
+                // بررسی وضعیت
+                if (response.status === 400) {
+                    return response.text().then(text => { throw new Error(text || "درخواست نامعتبر"); });
+                }
+                if (response.status === 401) {
+                    throw new Error("شما دسترسی لازم را ندارید");
+                }
+                if (response.status === 404) {
+                    throw new Error("کاربر یافت نشد");
+                }
+                if (!response.ok) {
+                    throw new Error(`خطا: ${response.status}`);
+                }
+
+                return response.text();
+            })
+            .then(data => {
+                if (data === null) return; // ریدایرکت شده
+
+                document.getElementById("deleteModal").classList.add("hidden");
+
+                const tr = document.querySelector(`tr[data-row="${deleteId}"]`);
+                if (tr) {
+                    tr.classList.add("row-warning");
+                    setTimeout(() => {
+                        tr.classList.add("row-collapse-bottom-up");
+                    }, 150);
+                    setTimeout(() => {
+                        tr.remove();
+
+                        // اگر ردیفی باقی نماند، می‌توانید صفحه را رفرش کنید
+                        const remainingRows = document.querySelectorAll('tbody tr').length;
+                        if (remainingRows === 0) {
+                            location.reload();
+                        }
+                    }, 1200);
+                }
+            })
+            .catch(error => {
+                console.error("Delete error:", error);
+                alert(error.message || "خطا در حذف کاربر");
+                document.getElementById("deleteModal").classList.add("hidden");
+            });
+        });
+    </script>
+}

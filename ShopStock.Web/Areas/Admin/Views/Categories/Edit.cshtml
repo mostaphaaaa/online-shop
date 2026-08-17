@@ -1,0 +1,67 @@
+﻿@using ShopStock.Domain.ViewModels.Category
+
+@model AdminEditCategoryViewModel
+
+@{
+    ViewData["Title"] = "ویرایش دسته بندی";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <form asp-action="Edit" class="row" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ParentId" />
+        <input type="hidden" asp-for="CategoryId" />
+        <input type="hidden" asp-for="CreateDate" />
+        <input type="hidden" asp-for="ImageName" />
+        <input type="hidden" asp-for="CategoryParentTitle" />
+        @if (Model.CategoryParentTitle != null)
+        {
+            <div class="alert alert-warning">
+                <h4>
+
+                    <p> دسته بندی اصلی : <b style="color:red;">@Model.CategoryParentTitle</b></p>
+
+                </h4>
+            </div>
+        }
+        <div class="col-md-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slug" class="control-label"></label>
+                <input asp-for="Slug" class="form-control" />
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input type="file" asp-for="Image" class="form-control" />
+                <img src="~/CategoryImages/@Model.ImageName" alt="تصویر دسته بندی" class="img img-thumbnail" style="max-width: 200px; margin-top: 10px;" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            </div>
+            <div class="row" style="margin-top:15px;padding:40px">
+
+                <input type="submit" value="ویرایش" class="btn btn-warning btn-block" />
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">بازگشت به لیست</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/permission-checkboxes.js"></script>
+}

@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "فعال سازی ایمیل";
+}
+<div class="container">
+@if(ViewBag.ActiveAccount==true)
+{
+    <div class="alert alert-success p-3">
+        <h2>ایمیل شما با موفقیت فعال شد!</h2>
+        <p>
+            اکنون می توانید وارد سایت شوید و از امکانات آن استفاده کنید
+        </p>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger p-3">
+        <h2>حساب کاربری با این مشخصات یافت نشد !</h2>
+        <p>
+                اگر فکر میکنید مشکلی پیش آمده است ، لطفا با پشتیبانی سایت تماس بگیرید
+        </p>
+    </div>
+    }
+)
+</div>
+

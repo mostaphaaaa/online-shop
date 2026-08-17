@@ -1,0 +1,144 @@
+﻿@using ShopStock.Domain.ViewModels.User
+@model AdminFilterUserViewModel
+
+@{
+    ViewData["Title"] = "لیست کاربران";
+    ViewBag.Url = "/Admin/Users";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-success me-sm-3 me-1">افزودن کاربر جدید</a>
+</p>
+<div class="row">
+    <div class="row">
+        <div class="card mb-2">
+            <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="m-0">فیلترها</h5>
+                <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#filterCardBody" aria-expanded="false" aria-controls="filterCardBody">
+                    @* <i class="bi bi-chevron-down"></i> *@
+                    Open
+                </button>
+            </div>
+            <div class="collapse" id="filterCardBody">
+                <form asp-action="Index" method="get" id="filter-search">
+                    <input asp-for="PageId" type="hidden" id="PageId" />
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="FirstName" class="form-label"></label>
+                                <input asp-for="FirstName" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="LastName" class="form-label"></label>
+                                <input asp-for="LastName" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="UserName" class="form-label"></label>
+                                <input asp-for="UserName" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control">
+                            </div>
+                            <div class="col-md-4 user_status">
+                                <select asp-for="DeleteStatus" class="form-select text-capitalize">
+                                    <option value="">وضعیت حذف</option>
+                                    <option value="َAll" class="text-capitalize">همه</option>
+                                    <option value="Deleted" class="text-capitalize">حذف شده</option>
+                                    <option value="NotDeleted" class="text-capitalize">حذف نشده</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">جستجو</button>
+                            <a asp-action="Index" class="btn btn-label-secondary">حذف</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if (ViewBag.Create == "Success")
+        {
+            <div class="alert alert-success">
+                <h6>کاربر با موفقیت ثبت شد</h6>
+            </div>
+        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        آواتار
+                    </th>
+                    <th>
+                        نام
+                    </th>
+                    <th>
+                        نام خانوادگی
+                    </th>
+                    <th>
+                        نام کاربری
+                    </th>
+                    <th>
+                        ایمیل
+                    </th>
+                    <th>
+                        موبایل
+                    </th>
+                    <th>
+                        فعال / غیر فعال
+                    </th>
+                    <th>
+                        تاریخ ایجاد / ویرایش
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Entities)
+                {
+                    <tr class="@(item.IsDelete ? "table-danger" : "")">
+                        <td>
+                            <img src="/Avatars/@item.Avatar" class="user-profile-img" style="max-width: 75px;border-radius: 15px;" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mobile)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            @item.CreateDate.ToShamsi()
+                            <br />
+                            @item.UpdateDate?.ToShamsi()
+                        </td>
+                        <td>
+                            <a class="btn rounded-pill btn-label-warning" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
+                            <a class="btn rounded-pill btn-label-danger delete-btn" asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<partial name="_AdminPagination" model="@Model.GetCurrentPaging()" />

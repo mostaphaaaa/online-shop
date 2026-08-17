@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/Application/">
+    <Project Path="ShopStock.Application/ShopStock.Application.csproj" />
+  </Folder>
+  <Folder Name="/Domain/">
+    <Project Path="ShopStock.Domain/ShopStock.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infra.Data/">
+    <Project Path="ShopStock.Infra.Data/ShopStock.Infra.Data.csproj" />
+  </Folder>
+  <Folder Name="/Infra.IOC/">
+    <Project Path="ShopStock.Infra.IOC/ShopStock.Infra.IOC.csproj" />
+  </Folder>
+  <Folder Name="/Presentations/">
+    <Project Path="ShopStock.Web/ShopStock.Web.csproj" />
+  </Folder>
+</Solution>
