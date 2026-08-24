@@ -98,13 +98,16 @@
                 <div class="row">
                     @foreach (var image in Model.ProductGalleries)
                     {
-                        <div class="col-5 m-2 gallery-item"
-                             id="gallery-@image.Id">
+                        <div  class="col-5 m-2 gallery-item" id="gallery-@(image.Id)">
 
                             <img src="~/ProductImages/@image.ImageName"
                                  class="img-thumbnail"
                                  style="max-width:100%;" />
 
+
+                          @*   <a class="btn btn-danger btn-sm mt-2 remove-gallery" onclick="DeleteImage(@image.Id)">
+                                حذف
+                            </a> *@
                             <button type="button"
                                     class="btn btn-danger btn-sm mt-2 remove-gallery"
                                     data-id="@image.Id">
@@ -192,7 +195,7 @@
                 });
         }
 
-        }
+                }
     </script>
     <script src="~/AdminAssets/assets/vendor/libs/tagify/tagify.js"></script>
     <script>
@@ -240,7 +243,7 @@
         });
     </script>
 
-    // حذف عکس گالری
+    @* // حذف عکس گالری *@
     <script>
         document.querySelectorAll(".remove-gallery")
             .forEach(btn => {
@@ -270,11 +273,24 @@
                 });
 
             });
+
+           
+       
+           // حذف عکس گالری روش 2
+           function DeleteImage(id)
+           {
+               $.get("/Admin/Products/DeleteImage/"+id, function()
+               {
+                   $("#gallery-"+id).hide('slow');
+               });
+           }
+
     </script>
+
     <script>
 
         //پیش نمایش تصویر اصلی محصول
-                function ShowpImage(input) {
+        function ShowpImage(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {

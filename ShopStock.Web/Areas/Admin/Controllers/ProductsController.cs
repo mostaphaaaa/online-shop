@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopStock.Application.Services.Interfaces;
 using ShopStock.Domain.ViewModels.Product;
 using ShopStock.Infra.Data.Context;
+using ShopStock.Infra.Data.Statics;
+using ShopStock.Web.Attributes;
 
 namespace ShopStock.Web.Areas.Admin.Controllers
 {
@@ -23,6 +25,7 @@ namespace ShopStock.Web.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AdminCreateProductViewModel product)
         {
             //[{ "value":"کلمه اول"},{ "value":"کلمه دوم"},{ "value":"کلمه سوم"}]
@@ -70,6 +73,12 @@ namespace ShopStock.Web.Areas.Admin.Controllers
         }
 
         #endregion
+
+
+        public async Task DeleteImage(int id)
+        {
+            await _productService.DeleteImageGallery(id);
+        }
 
         public async Task<JsonResult> GetTags(string query)
         {

@@ -20,5 +20,13 @@ namespace ShopStock.Infra.Data.Statics
         public const string EditRole = "EditRole";
         public const string DeleteRole = "DeleteRole";
         #endregion
+
+
+        #region Product
+        public const string ManageProducts = "ManageProducts";
+        public const string AddProduct = "AddProduct";
+        public const string EditProduct = "EditProduct";
+        public const string DeleteProduct = "DeleteProduct";
+        #endregion
     }
 }

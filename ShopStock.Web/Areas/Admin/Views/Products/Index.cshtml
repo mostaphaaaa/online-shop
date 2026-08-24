@@ -94,6 +94,7 @@
                         <td>
                             <a class="btn rounded-pill btn-label-warning" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
                             <a class="btn rounded-pill btn-label-danger delete-btn" asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                            <a class="btn rounded-pill btn-label-facebook" asp-controller="ProductFeatures" asp-action="Index" asp-route-id="@item.Id">ویژگی ها</a>
                         </td>
                     </tr>
                 }

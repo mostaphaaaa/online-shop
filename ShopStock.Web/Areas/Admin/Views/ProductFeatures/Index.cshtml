@@ -1,0 +1,47 @@
+@using ShopStock.Domain.Models.Products
+@model IEnumerable<ProductFeature>
+
+@{
+    ViewData["Title"] = @ViewBag.Product;
+}
+
+<h1>@ViewBag.Product</h1>
+<hr />
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.ProductId">افزودن ویزگی جدید</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                عنوان ویژگی
+            </th>
+            <th>
+                مقدار
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(model => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Value)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">ویرایش</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index" asp-Controller="Products" class="btn btn-outline-reddit">بازگشت به لیست محصولات</a>
+</div>

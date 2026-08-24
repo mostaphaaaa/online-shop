@@ -19,6 +19,7 @@ namespace ShopStock.Domain.Contracts
         Task<IEnumerable<ProductGallery>> GetProductGalleriesAsync(int productId);
 
         Task DeleteProductGalleryAsync(ProductGallery gallery);
+        Task<ProductGallery> GetProductGalleryById(int galleryId);
 
         Task AddProductGalleryAsync(int productId,string imageName);
 

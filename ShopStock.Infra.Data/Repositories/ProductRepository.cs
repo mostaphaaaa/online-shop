@@ -165,5 +165,10 @@ namespace ShopStock.Infra.Data.Repositories
                 _context.ProductTags.Remove(tag);
             }
         }
+
+        public async Task<ProductGallery> GetProductGalleryById(int galleryId)
+        {
+            return await _context.ProductGalleries.AsNoTracking().SingleOrDefaultAsync(g => g.Id == galleryId);
+        }
     }
 }

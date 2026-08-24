@@ -118,8 +118,7 @@ namespace ShopStock.Application.Services.Implementation
 
         public async Task EditProductAsync(AdminEditProductViewModel model)
         {
-            var product2 = await _productRepository.GetProductForEditInAdminAsync(model.Id);
-            var product = await _productRepository.GetByIdAsync(model.Id);
+            var product = await _productRepository.GetProductForEditInAdminAsync(model.Id);
 
             #region  Map Product
             product.Title = model.Title;
@@ -160,7 +159,7 @@ namespace ShopStock.Application.Services.Implementation
             {
                 var tags = JsonSerializer.Deserialize<List<ProductTagViewModel>>(model.Tags);
                 await _productRepository.AddProductTagsAsync(product.Id, tags);
-            }
+            }   
             #endregion
 
             #region Edit Product Galleries 
@@ -168,7 +167,7 @@ namespace ShopStock.Application.Services.Implementation
             {
                 foreach (var galleryId in model.DeletedGalleryIds)
                 {
-                    var gallery = product2.ProductGalleries?
+                    var gallery = product.ProductGalleries?
                         .FirstOrDefault(g => g.Id == galleryId);
 
                     if (gallery == null)
@@ -184,6 +183,8 @@ namespace ShopStock.Application.Services.Implementation
                     await _productRepository.DeleteProductGalleryAsync(gallery);
                 }
             }
+
+
 
             //Add new photo to gallery
             if (model.Galleries != null && model.Galleries.Any())
@@ -239,7 +240,22 @@ namespace ShopStock.Application.Services.Implementation
             FileHelper.DeleteFile(deletePath);
             FileHelper.DeleteFile(thumbDeletePath);
         }
-            #endregion
+        #endregion
+
+        public async Task DeleteImageGallery(int galleryId)
+        {
+            var gallery = await _productRepository.GetProductGalleryById(galleryId);
+            DeleteImageFile(gallery.ImageName);
+            await _productRepository.DeleteProductGalleryAsync(gallery);
+            await _productRepository.SaveAsync();
+        }
+
+        public async Task<string?> GetProductTitleAsync(int productId)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+
+            return product?.Title;
+        }
     }
 
 
