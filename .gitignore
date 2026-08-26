@@ -377,3 +377,7 @@ ShopStock.Web/wwwroot/CategoryImages/*
 ShopStock.Web/wwwroot/Avatars/*
 !ShopStock.Web/wwwroot/Avatars/.gitkeep
 !ShopStock.Web/wwwroot/Avatars/NoPhoto.jpg
+
+# EF Core Migrations
+ShopStock.Infra.Data/Migrations/
+!ShopStock.Infra.Data/Migrations/.gitkeep
