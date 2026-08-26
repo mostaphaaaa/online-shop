@@ -2088,7 +2088,7 @@ body.loaded .product-card .product-thumbnail a::before {
 .page-header .page-header--bottom .vertical-menu .vertical-menu-items .mega-menu li a {
   display: block;
   padding: 2px 0;
-  color: #616161;
+  color: #616161;  /*رنگ دسته بندی نهایی*/
   font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2104,7 +2104,7 @@ body.loaded .product-card .product-thumbnail a::before {
 .page-header .page-header--bottom .vertical-menu .vertical-menu-items .mega-menu li.parent {
   padding-top: 10px;
   padding-bottom: 4px;
-  border-right: 2px solid #2962ff;
+  border-right: 2px solid #2962ff; /* رنگ نوار کنار دسته بندی فرعی : #2962ff*/
   padding-right: 8px;
   margin-top: 5px;
 }
@@ -2116,7 +2116,7 @@ body.loaded .product-card .product-thumbnail a::before {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #0c0c0c;
+  color: red;        /* رنگ دسته بندی فرعی*/
   font-weight: 700;
   font-size: 14px;
   padding-right: 0;

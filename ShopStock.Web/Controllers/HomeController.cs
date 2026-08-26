@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopStock.Application.Security;
+using ShopStock.Domain.Models.Users;
 using ShopStock.Infra.Data.Context;
 
 namespace ShopStock.Web.Controllers
@@ -11,8 +12,8 @@ namespace ShopStock.Web.Controllers
         public HomeController(EshopDbContext context)
         {
             this.context = context;
-            //var user = context.Users.First();
-            //user.Password = PasswordHelper.EncodePasswordMd5("123");
+            //var user = context.Users.SingleOrDefault(u => u.Id == 16);
+            //user.Password = PasswordHelper.EncodePasswordMd5("1234");
             //context.SaveChanges();
         }
         public IActionResult Index()

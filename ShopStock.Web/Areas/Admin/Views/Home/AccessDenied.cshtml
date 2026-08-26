@@ -1,96 +1,514 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
 
-<html lang="en"
-      class="light-style customizer-hide"
-      dir="ltr"
-      data-theme="theme-default"
-      data-assets-path="../../assets/"
-      data-template="vertical-menu-template">
+<!doctype html>
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>عدم دسترسی</title>
 
-    <title>Not Authorized - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <style>
+            :root{
+              --bg0:#070812;
+              --bg1:#0b1224;
+              --card: rgba(16, 24, 45, .72);
+              --card2: rgba(255,255,255,.06);
+              --text:#e8ecff;
+              --muted: rgba(232,236,255,.72);
+              --line: rgba(255,255,255,.12);
+              --accent:#7c3aed;   /* بنفش */
+              --accent2:#06b6d4;  /* فیروزه‌ای */
+              --good:#22c55e;
+              --shadow: 0 30px 80px rgba(0,0,0,.55);
+              --radius: 22px;
+            }
 
-    <meta name="description" content="" />
+            *{ box-sizing:border-box; }
+            html,body{ height:100%; }
+            body{
+              margin:0;
+              font-family:"Vazirmatn", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+              color:var(--text);
+              background: radial-gradient(1200px 700px at 18% 15%, rgba(124,58,237,.30), transparent 55%),
+                          radial-gradient(900px 600px at 82% 25%, rgba(6,182,212,.22), transparent 50%),
+                          linear-gradient(180deg, var(--bg0), var(--bg1));
+              overflow-x:hidden;
+            }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+            /* پس‌زمینه متحرک */
+            .bg-orbs{
+              position:fixed; inset:0;
+              pointer-events:none;
+              z-index:0;
+              filter: blur(30px);
+              opacity:.9;
+            }
+            .orb{
+              position:absolute;
+              width: 340px; height:340px;
+              border-radius: 50%;
+              background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.9), rgba(124,58,237,.0) 65%);
+              animation: floaty 10s ease-in-out infinite;
+              mix-blend-mode: screen;
+            }
+            .orb:nth-child(2){
+              width: 420px; height:420px;
+              background: radial-gradient(circle at 30% 30%, rgba(6,182,212,.85), rgba(6,182,212,.0) 66%);
+              animation-duration: 13s;
+              animation-delay: -2s;
+            }
+            .orb:nth-child(3){
+              width: 280px; height:280px;
+              background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,.0) 62%);
+              animation-duration: 11s;
+              animation-delay: -4s;
+              opacity:.55;
+            }
+            @@keyframes floaty{
+              0%,100%{ transform: translate3d(0,0,0) scale(1); }
+              50%{ transform: translate3d(22px,-26px,0) scale(1.05); }
+            }
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-          rel="stylesheet" />
+            /* ذرات */
+            .grid{
+              position:fixed; inset:-40px;
+              z-index:0;
+              pointer-events:none;
+              opacity:.35;
+              background:
+                linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
+              background-size: 60px 60px;
+              mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,1), rgba(0,0,0,.15) 60%, transparent 80%);
+            }
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+            .wrap{
+              position:relative;
+              z-index:1;
+              min-height:100vh;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              padding: 28px 16px;
+            }
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../../assets/css/demo.css" />
+            .card{
+              width:min(980px, 100%);
+              border-radius: var(--radius);
+              background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+              border: 1px solid rgba(255,255,255,.10);
+              box-shadow: var(--shadow);
+              overflow:hidden;
+              position:relative;
+              backdrop-filter: blur(10px);
+            }
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+            /* نوار لبه‌ای */
+            .card::before{
+              content:"";
+              position:absolute;
+              inset:-2px;
+              background: conic-gradient(from 180deg,
+                rgba(124,58,237,.0),
+                rgba(124,58,237,.65),
+                rgba(6,182,212,.55),
+                rgba(124,58,237,.0)
+              );
+              opacity:.45;
+              filter: blur(10px);
+              z-index:0;
+              animation: spin 6.5s linear infinite;
+            }
+            @@keyframes spin{ to{ transform: rotate(360deg); } }
 
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-misc.css" />
-    <!-- Helpers -->
-    <script src="../../assets/vendor/js/helpers.js"></script>
+            .card-inner{
+              position:relative;
+              z-index:1;
+              padding: 34px 26px;
+              display:grid;
+              grid-template-columns: 1.2fr .8fr;
+              gap: 18px;
+              align-items:center;
+            }
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="../../assets/vendor/js/template-customizer.js"></script>
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../../assets/js/config.js"></script>
+            @@media (max-width: 860px){
+              .card-inner{ grid-template-columns:1fr; padding: 26px 18px; }
+            }
+
+            .title{
+              display:flex;
+              align-items:center;
+              gap: 14px;
+              margin-bottom: 10px;
+            }
+
+            .badge{
+              width: 56px; height:56px;
+              border-radius: 16px;
+              background: linear-gradient(135deg, rgba(124,58,237,.35), rgba(6,182,212,.18));
+              border:1px solid rgba(255,255,255,.12);
+              display:flex; align-items:center; justify-content:center;
+              box-shadow: 0 16px 40px rgba(0,0,0,.35);
+              position:relative;
+              overflow:hidden;
+            }
+            .badge::after{
+              content:"";
+              position:absolute;
+              inset:-40%;
+              background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 60%);
+              transform: rotate(20deg);
+              animation: shimmer 2.2s ease-in-out infinite;
+            }
+            @@keyframes shimmer{
+              0%,100%{ transform: translateX(-8px) rotate(20deg); opacity:.55; }
+              50%{ transform: translateX(10px) rotate(20deg); opacity:.95; }
+            }
+
+            .badge svg{ position:relative; z-index:1; }
+            h1{
+              font-size: clamp(22px, 2.4vw, 34px);
+              margin:0;
+              letter-spacing: .2px;
+            }
+
+            .sub{
+              margin: 0 0 18px;
+              color: var(--muted);
+              line-height: 1.9;
+              font-size: 15.5px;
+            }
+
+            .msg{
+              display:flex;
+              gap: 12px;
+              align-items:flex-start;
+              padding: 14px 14px;
+              border-radius: 16px;
+              background: rgba(0,0,0,.18);
+              border: 1px solid rgba(255,255,255,.10);
+            }
+
+            .msg .dot{
+              width: 12px; height: 12px;
+              border-radius: 50%;
+              background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.0) 55%),
+                          linear-gradient(135deg, var(--accent), var(--accent2));
+              margin-top: 7px;
+              box-shadow: 0 0 0 6px rgba(124,58,237,.12), 0 0 30px rgba(124,58,237,.35);
+              animation: pulse 1.6s ease-in-out infinite;
+            }
+            @@keyframes pulse{
+              0%,100%{ transform: scale(1); opacity: .95; }
+              50%{ transform: scale(1.14); opacity: 1; }
+            }
+
+            .msg strong{
+              display:block;
+              font-size: 16px;
+              margin-bottom: 4px;
+            }
+
+            .actions{
+              margin-top: 18px;
+              display:flex;
+              flex-wrap:wrap;
+              gap: 12px;
+            }
+
+            .btn{
+              border:1px solid rgba(255,255,255,.14);
+              border-radius: 14px;
+              padding: 11px 14px;
+              text-decoration:none;
+              color: var(--text);
+              background: rgba(255,255,255,.06);
+              transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+              display:inline-flex;
+              align-items:center;
+              gap: 10px;
+              user-select:none;
+              font-weight:600;
+            }
+            .btn:hover{
+              transform: translateY(-2px);
+              border-color: rgba(255,255,255,.22);
+              box-shadow: 0 18px 40px rgba(0,0,0,.35);
+              background: rgba(255,255,255,.09);
+            }
+
+            .btn.primary{
+              background: linear-gradient(135deg, rgba(124,58,237,.55), rgba(6,182,212,.25));
+              border-color: rgba(124,58,237,.45);
+            }
+
+            /* بخش تصویر/کارت جانبی */
+            .side{
+              border-radius: 18px;
+              border: 1px solid rgba(255,255,255,.12);
+              background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(255,255,255,.03));
+              padding: 16px;
+              position:relative;
+              overflow:hidden;
+            }
+
+            .side::before{
+              content:"";
+              position:absolute; inset:-2px;
+              background: radial-gradient(circle at 20% 10%, rgba(124,58,237,.35), transparent 45%),
+                          radial-gradient(circle at 90% 25%, rgba(6,182,212,.25), transparent 50%);
+              opacity:.9;
+              pointer-events:none;
+            }
+
+            .illustration{
+              position:relative;
+              z-index:1;
+              border-radius: 14px;
+              overflow:hidden;
+              border: 1px solid rgba(255,255,255,.10);
+              background: rgba(0,0,0,.2);
+            }
+
+            /* قفل + درخشش */
+            .lock-wrap{
+              width:100%;
+              aspect-ratio: 4/3;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              padding: 14px;
+              position:relative;
+            }
+
+            .scanlines{
+              position:absolute; inset:0;
+              background: repeating-linear-gradient(
+                to bottom,
+                rgba(255,255,255,.05),
+                rgba(255,255,255,.00) 3px,
+                rgba(0,0,0,.00) 6px
+              );
+              opacity:.35;
+              mix-blend-mode: overlay;
+              animation: moveScan 3.2s linear infinite;
+            }
+            @@keyframes moveScan{
+              from{ transform: translateY(-10px); }
+              to{ transform: translateY(10px); }
+            }
+
+            .hint{
+              margin-top: 12px;
+              color: var(--muted);
+              font-size: 13.5px;
+              line-height: 1.8;
+              position:relative;
+              z-index:1;
+            }
+
+            /* انیمیشن ورود */
+            .anim-in{
+              animation: enter .6s ease both;
+            }
+            @@keyframes enter{
+              from{ opacity:0; transform: translateY(10px); }
+              to{ opacity:1; transform: translateY(0); }
+            }
+
+            /* متن کدوم؟ */
+            .code-like{
+              display:inline-flex;
+              gap:8px;
+              align-items:center;
+              padding: 8px 10px;
+              border-radius: 12px;
+              border: 1px dashed rgba(255,255,255,.16);
+              background: rgba(0,0,0,.22);
+              font-size: 13px;
+              color: rgba(232,236,255,.85);
+              margin-top: 10px;
+            }
+            .kbd{
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+              font-weight:700;
+              color:#d9dbff;
+            }
+
+            /* کاهش حرکت */
+            @@media (prefers-reduced-motion: reduce){
+              .orb, .card::before, .scanlines, .msg .dot { animation:none !important; }
+              .anim-in{ animation:none !important; }
+              .btn{ transition:none !important; }
+            }
+
+    </style>
 </head>
 
 <body>
-    <!-- Content -->
-    <!-- Not Authorized -->
-    <div class="container-xxl container-p-y">
-        <div class="misc-wrapper">
-            <h2 class="mb-2 mx-2">You are not authorized!</h2>
-            <p class="mb-4 mx-2">
-                You do not have permission to view this page using the credentials that you have provided while login. <br />
-                Please contact your site administrator.
-            </p>
-            <a href="index.html" class="btn btn-primary">Back to home</a>
-            <div class="mt-5">
-                <img src="../../assets/img/illustrations/girl-with-laptop-light.png"
-                     alt="page-misc-not-authorized-light"
-                     width="450"
-                     class="img-fluid"
-                     data-app-light-img="illustrations/girl-with-laptop-light.png"
-                     data-app-dark-img="illustrations/girl-with-laptop-dark.png" />
-            </div>
-        </div>
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb" style="left:-60px; top:8vh;"></div>
+        <div class="orb" style="right:-90px; top:20vh;"></div>
+        <div class="orb" style="left:20vw; top:65vh;"></div>
     </div>
-    <!-- /Not Authorized -->
-    <!-- / Content -->
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../../assets/vendor/js/bootstrap.js"></script>
-    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <div class="grid" aria-hidden="true"></div>
 
-    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <main class="wrap">
+        <section class="card anim-in" role="alert" aria-live="polite">
+            <div class="card-inner">
+                <div>
+                    <div class="title">
+                        <div class="badge" aria-hidden="true">
+                            <!-- آیکن قفل (SVG) -->
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                                <path d="M7.5 10V7.8c0-2.65 2.15-4.8 4.8-4.8s4.8 2.15 4.8 4.8V10"
+                                      stroke="white" stroke-opacity=".92" stroke-width="1.8" stroke-linecap="round" />
+                                <path d="M6.8 10h10.4c.72 0 1.3.58 1.3 1.3v8.4c0 .72-.58 1.3-1.3 1.3H6.8c-.72 0-1.3-.58-1.3-1.3v-8.4c0-.72.58-1.3 1.3-1.3Z"
+                                      stroke="white" stroke-opacity=".92" stroke-width="1.8" stroke-linejoin="round" />
+                                <path d="M12 14.2v3.2" stroke="white" stroke-opacity=".92" stroke-width="1.8" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <h1>Access Denied</h1>
+                    </div>
 
-    <script src="../../assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-    <!-- Vendors JS -->
-    <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
+                    <p class="sub">
+                        به نظر می‌رسد برای دیدن این بخش مجوز لازم را ندارید.
+                        لطفاً با اکانت دارای دسترسی وارد شوید یا از مدیر سیستم کمک بگیرید.
+                    </p>
 
-    <!-- Page JS -->
+                    <div class="msg">
+                        <div class="dot" aria-hidden="true"></div>
+                        <div>
+                            <strong>شما به این صفحه دسترسی ندارید.</strong>
+                            <div style="color:var(--muted); line-height:1.9; font-size:15px;">
+                                اگر فکر می‌کنید این محدودیت اشتباه است، با مدیر سایت (Admin) تماس بگیرید.
+                            </div>
+
+                            <div class="code-like" aria-hidden="true">
+                                <span style="opacity:.75;">Status:</span>
+                                <span class="kbd">403</span>
+                                <span style="opacity:.75;">/</span>
+                                <span class="kbd">ACCESS_DENIED</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <a class="btn primary" href="/">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M14 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M20 12H4" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            بازگشت به صفحه اصلی
+                        </a>
+
+                        <a class="btn" href="/Login">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M12 15l-3-3 3-3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M9 12h12" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                <path d="M3 19V5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            ورود مجدد
+                        </a>
+                    </div>
+                </div>
+
+                <aside class="side anim-in" aria-label="Access information">
+                    <div class="illustration">
+                        <div class="lock-wrap">
+                            <div class="scanlines" aria-hidden="true"></div>
+                            <svg width="100%" height="100%" viewBox="0 0 420 315" fill="none" role="img" aria-label="Lock illustration">
+                                <defs>
+                                    <linearGradient id="g1" x1="80" y1="40" x2="350" y2="280" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#7c3aed" stop-opacity="0.95" />
+                                        <stop offset="1" stop-color="#06b6d4" stop-opacity="0.75" />
+                                    </linearGradient>
+                                    <linearGradient id="g2" x1="120" y1="50" x2="320" y2="290" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#ffffff" stop-opacity="0.35" />
+                                        <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+                                    </linearGradient>
+                                    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                                        <feGaussianBlur stdDeviation="6" result="blur" />
+                                        <feColorMatrix in="blur" type="matrix"
+                                                       values="1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 14 -6" result="glow" />
+                                        <feMerge>
+                                            <feMergeNode in="glow" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+
+                                <!-- نور پس زمینه -->
+                                <path d="M50 235C120 170 175 145 245 130C315 115 360 95 390 60"
+                                      stroke="url(#g2)" stroke-width="3" opacity="0.7" />
+
+                                <!-- بدن قفل -->
+                                <g filter="url(#glow)">
+                                    <rect x="165" y="135" width="90" height="130" rx="18" fill="rgba(255,255,255,.06)" stroke="url(#g1)" stroke-width="2" />
+                                    <!-- شیار -->
+                                    <path d="M195 200c0-11.5 30-11.5 30 0s-30 11.5-30 0Z" fill="url(#g1)" opacity="0.65" />
+                                    <!-- آویز -->
+                                    <path d="M210 132c0-30 0-65 0-65 0-12 9.5-22 21-22s21 10 21 22c0 0 0 35 0 65"
+                                          stroke="url(#g1)" stroke-width="10" stroke-linecap="round" opacity="0.18" />
+                                    <!-- گردن -->
+                                    <path d="M203 134v-32c0-17 13.5-30.5 30-30.5s30 13.5 30 30.5v32"
+                                          stroke="url(#g1)" stroke-width="2.2" stroke-linecap="round" opacity="0.9" />
+                                    <!-- کمان قفل -->
+                                    <path d="M233 101c0-18 0-27 0-27" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-linecap="round" opacity="0.9" />
+                                </g>
+
+                                <!-- علامت ضربدر روی صفحه (عدم دسترسی) -->
+                                <g opacity="0.92">
+                                    <path d="M105 95l210 210" stroke="rgba(255,255,255,.18)" stroke-width="10" stroke-linecap="round" />
+                                    <path d="M315 95L105 305" stroke="rgba(255,255,255,.18)" stroke-width="10" stroke-linecap="round" />
+                                    <path d="M110 100l200 200" stroke="url(#g1)" stroke-width="3.5" stroke-linecap="round" opacity="0.75" />
+                                    <path d="M310 100L110 300" stroke="url(#g1)" stroke-width="3.5" stroke-linecap="round" opacity="0.75" />
+                                </g>
+
+                                <g opacity="0.9">
+                                    <circle cx="85" cy="155" r="3" fill="#06b6d4" />
+                                    <circle cx="110" cy="120" r="2.5" fill="#7c3aed" />
+                                    <circle cx="330" cy="130" r="2.8" fill="#06b6d4" />
+                                    <circle cx="360" cy="175" r="3.2" fill="#7c3aed" />
+                                    <circle cx="260" cy="55" r="2.2" fill="#fff" opacity="0.55" />
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="hint">
+                        <div style="font-weight:700; color:rgba(232,236,255,.9); margin-bottom:6px;">
+                            نکته
+                        </div>
+                        اگر دسترسی شما از سمت نقش/سطح مجوز تغییر کرده، ممکن است نیاز باشد دوباره لاگین کنید.
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+            const card = document.querySelector('.card');
+            if (card & amp;& amp; window.matchMedia & amp;& amp; window.matchMedia('(prefers-reduced-motion: reduce)').matches === false) {
+                window.addEventListener('mousemove', (e) => {
+                    const r = card.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width; 0..1
+                    const y = (e.clientY - r.top) / r.height; 0..1
+                    const rx = (0.5 - y) * 8; degrees
+                    const ry = (x - 0.5) * 10;
+                    card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+                });
+                window.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg)`;
+                });
+            }
+    </script>
+
 </body>
 </html>
