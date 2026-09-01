@@ -170,5 +170,10 @@ namespace ShopStock.Infra.Data.Repositories
         {
             return await _context.ProductGalleries.AsNoTracking().SingleOrDefaultAsync(g => g.Id == galleryId);
         }
+
+        public async Task<IQueryable<Product>> GetTopProductsForShowAsync()
+        {
+            return  _context.Products.OrderByDescending(p=>p.CreateDate).Take(12).AsQueryable();
+        }
     }
 }

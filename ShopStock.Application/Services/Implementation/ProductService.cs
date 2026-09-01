@@ -256,7 +256,11 @@ namespace ShopStock.Application.Services.Implementation
 
             return product?.Title;
         }
+
+        public async Task<IEnumerable<Product>> GetTopProductsForShowAsync()
+        {
+            var data =await _productRepository.GetTopProductsForShowAsync();
+            return data;
+        }
     }
-
-
 }

@@ -24,5 +24,7 @@ namespace ShopStock.Domain.Contracts
         Task AddProductGalleryAsync(int productId,string imageName);
 
         Task DeleteAllProductTagsAsunc(int productId);
+
+        Task <IQueryable<Product>> GetTopProductsForShowAsync();
     }
 }

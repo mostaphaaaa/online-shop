@@ -110,8 +110,6 @@ ShopStock
 
 │
 
-├── BaseEntity
-
 │
 
 ├── ShopStock.Domain
@@ -169,15 +167,6 @@ ShopStock
 
 
 \### Layer Responsibilities
-
-
-
-\*\*BaseEntity\*\*
-
-
-
-Contains shared base functionality used by entities throughout the application.
-
 
 
 \*\*ShopStock.Domain\*\*
@@ -243,88 +232,6 @@ The presentation layer of the application. It contains controllers, views, areas
 \* \*\*CKEditor\*\*
 
 \* \*\*Git / GitHub\*\*
-
-
-
-\---
-
-
-
-\## 📂 Project Structure
-
-
-
-```text
-
-ShopStock/
-
-│
-
-├── BaseEntity/
-
-│   └── Shared base classes
-
-│
-
-├── ShopStock.Domain/
-
-│   ├── Models/
-
-│   │   └── Domain entities
-
-│   │
-
-│   └── ViewModels/
-
-│       └── Application ViewModels
-
-│
-
-├── ShopStock.Application/
-
-│   ├── Services/
-
-│   ├── Mapper/
-
-│   ├── Security/
-
-│   └── Utilities/
-
-│
-
-├── ShopStock.Infra.Data/
-
-│   ├── Context/
-
-│   ├── Migrations/
-
-│   ├── Repositories/
-
-│   └── Configurations/
-
-│
-
-├── ShopStock.Infra.IOC/
-
-│
-
-└── ShopStock.Web/
-
-&#x20;   ├── Areas/
-
-&#x20;   │   ├── Admin/
-
-&#x20;   │   └── UserPanel/
-
-&#x20;   │
-
-&#x20;   ├── Controllers/
-
-&#x20;   ├── Views/
-
-&#x20;   └── wwwroot/
-
-```
 
 
 
@@ -432,13 +339,6 @@ Make sure the following are installed:
 
 \### 1. Clone the repository
 
-
-
-```bash
-
-git clone https://github.com/YOUR\_USERNAME/ShopStock.git
-
-```
 
 
 

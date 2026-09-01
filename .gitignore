@@ -369,6 +369,7 @@ ShopStock.Web/wwwroot/ProductImages/*
 !ShopStock.Web/wwwroot/ProductImages/Thumb/
 ShopStock.Web/wwwroot/ProductImages/Thumb/*
 !ShopStock.Web/wwwroot/ProductImages/Thumb/.gitkeep
+!ShopStock.Web/wwwroot/ProductImages/Thumb/NoPhoto.jpg
 
 ShopStock.Web/wwwroot/CategoryImages/*
 !ShopStock.Web/wwwroot/CategoryImages/.gitkeep
@@ -379,5 +380,5 @@ ShopStock.Web/wwwroot/Avatars/*
 !ShopStock.Web/wwwroot/Avatars/NoPhoto.jpg
 
 # EF Core Migrations
-ShopStock.Infra.Data/Migrations/
+ShopStock.Infra.Data/Migrations/*
 !ShopStock.Infra.Data/Migrations/.gitkeep

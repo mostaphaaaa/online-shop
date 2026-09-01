@@ -18,5 +18,7 @@ namespace ShopStock.Application.Services.Interfaces
         Task EditProductAsync(AdminEditProductViewModel model);
 
         Task<string?> GetProductTitleAsync(int productId);
+
+        Task<IEnumerable<Product>> GetTopProductsForShowAsync();
     }
 }
