@@ -1,0 +1,65 @@
+@using ShopStock.Domain.Models.Products
+@model IEnumerable<ProductColor>
+
+@{
+    ViewData["Title"] = "رنگ بندی های محصول: " + ViewBag.ProductTitle;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary" asp-route-id="@ViewBag.ProductId">افزودن رنگ جدید</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                عنوان رنگ
+            </th>
+            <th>
+                کد رنگ
+            </th>
+            <th>
+                قیمت
+            </th>
+            <th>
+                موجودی
+            </th>
+            <th>
+                پیش‌فرض
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Name)
+                </td>
+                <td>
+                    <span style="color: @item.Code">@item.Code</span>
+                </td>
+                <td>
+                    @item.Price.ToTooman()
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.IsDefault)
+                </td>
+                <td>
+                    <a asp-action="IsDefault" class="btn accent" asp-route-id="@item.Id">پیش‌فرض</a>
+                    <a asp-action="Edit" class="btn btn-outline-warning" asp-route-id="@item.Id">ویرایش</a>
+                    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index" asp-Controller="Products" class="btn btn-outline-reddit">بازگشت به لیست محصولات</a>
+</div>

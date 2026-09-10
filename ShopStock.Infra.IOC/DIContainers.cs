@@ -22,6 +22,7 @@ namespace ShopStock.Infra.IOC
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IProductFeaturesRepository, ProductFeaturesRepository>();
+            services.AddScoped<IProductColorsRepository, ProductColorsRepository>();
             #endregion
 
             #region Services
@@ -33,6 +34,7 @@ namespace ShopStock.Infra.IOC
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductFeatureService, ProductFeatureService>();
+            services.AddScoped<IProductColorService, ProductColorService>();
             #endregion
         }
     }
