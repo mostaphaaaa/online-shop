@@ -20,6 +20,24 @@
     <partial name="_ScriptRefrences" />
     <partial name="_ValidationScriptsPartial" />
     @RenderSection("Scripts",false)
+
+
+    <!-- start of quick-view-modal -->
+    <div class="remodal remodal-lg" data-remodal-id="quick-view-modal"
+         data-remodal-options="hashTracking: false" id="descProduct">
+
+    </div>
+    <!-- end of quick-view-modal -->
+    <script>
+        function ShowDescModal(id)
+        {
+            $.get("/Product/ShortDescProduct/"+id,function(res)
+            {
+                $("#descProduct").html(res);
+            });
+        }
+    </script>
+
 </body>
 
 </html>

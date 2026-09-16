@@ -1,4 +1,5 @@
-﻿using ShopStock.Application.Services.Interfaces;
+﻿using Microsoft.Identity.Client.NativeInterop;
+using ShopStock.Application.Services.Interfaces;
 using ShopStock.Domain.Contracts;
 using ShopStock.Domain.Models.Products;
 using ShopStock.Domain.ViewModels.Product;
@@ -16,7 +17,7 @@ namespace ShopStock.Application.Services.Implementation
 
         public async Task CreateProductColor(ProductColorViewModel model)
         {
-            await _productColorsRepository.CreateProductColorAsync(new ProductColor
+            ProductColor newColor = new ProductColor()
             {
                 ProductId = model.ProductId,
                 Name = model.Name,
@@ -25,8 +26,14 @@ namespace ShopStock.Application.Services.Implementation
                 IsDefault = false,
                 Quantity = model.Quantity,
                 CreateDate = DateTime.Now,
-                IsDelete = false  
-            });
+                IsDelete = false,
+            };
+
+            if (_productColorsRepository.GetAllProductColorsAsync(model.ProductId).Result.Count() == 0)
+            {
+                newColor.IsDefault = true;
+            }
+            await _productColorsRepository.CreateProductColorAsync(newColor);
             await _productColorsRepository.SaveChangesAsync();
         }
 
@@ -64,8 +71,8 @@ namespace ShopStock.Application.Services.Implementation
 
         public async Task<int> SetDefaultColorAsync(int colorId)
         {
-            var productcolor=await _productColorsRepository.GetProductColorByIdAsync(colorId);
-            var colors=await _productColorsRepository.GetAllProductColorsAsync(productcolor.ProductId);
+            var productcolor = await _productColorsRepository.GetProductColorByIdAsync(colorId);
+            var colors = await _productColorsRepository.GetAllProductColorsAsync(productcolor.ProductId);
             foreach (var color in colors)
             {
                 color.IsDefault = false;

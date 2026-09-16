@@ -173,7 +173,11 @@ namespace ShopStock.Infra.Data.Repositories
 
         public async Task<IQueryable<Product>> GetTopProductsForShowAsync()
         {
-            return  _context.Products.OrderByDescending(p=>p.CreateDate).Take(12).AsQueryable();
+            return  _context.Products
+                .Include(p=>p.ProductColors)
+                .OrderByDescending(p=>p.CreateDate)
+                .Take(12)
+                .AsQueryable();
         }
     }
 }
