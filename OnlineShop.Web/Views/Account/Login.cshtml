@@ -1,0 +1,112 @@
+﻿@using OnlineShop.Domain.ViewModels.Account
+@model LoginViewModel
+@{
+    ViewData["Title"] = "ورود به سایت";
+}
+@{
+    TempData.Keep("Captcha");
+}
+
+
+
+<!-- start of auth-container -->
+<div class="auth-container">
+    <div class="auth-title mb-3">ورود به سایت</div>
+    <!-- start of auth-box -->
+    <div class="auth-box ui-box">
+        <!-- start of auth-form -->
+        <form asp-action="Login" class="auth-form">
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+            @* <input type="hidden" name="ReturnUrl" value="@Model.ImageData" /> *@
+            <!-- start of form-element -->
+            <div class="form-element-row mb-1">
+                <input asp-for="UserNameOrEmail" class="form-control" placeholder="نام کاربری یا ایمیل">
+            </div>
+
+            <div class="form-element-row mb-1">
+                <input asp-for="Password" class="form-control" placeholder="کلمه عبور">
+            </div>
+            <div class="form-element-row mb-1">
+                <input asp-for="CaptchaAnswer" class="form-control" placeholder="عبارت امنیتی را وارد کنید" />
+                <div class="card border-0 bg-light">
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-3">
+                                <img id="captchaImage" src="@Model.ImageData" class="rounded" style="height: 45px;" />
+                                <button type="button" id="refreshCaptcha" class="btn btn-sm btn-link text-decoration-none">
+                                    🔄
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-1 pt-1">
+                    <input asp-for="RememberMe" class="form-check" />
+                </div>
+                <div class="col-10">
+                    <p>مرا به خاطر بسپار</p>
+                </div>
+            </div>
+            @if (ViewBag.UserNotActive != null)
+            {
+                <div class="alert alert-danger">
+                    <p>
+                        ایمیل شما فعال نشده است
+                    </p>
+                </div>
+            }
+            <!-- end of form-element -->
+            <!-- start of form-element -->
+            <div class="form-element-row mb-3">
+                <button class="btn btn-primary">ورود</button>
+            </div>
+            <!-- end of form-element -->
+            <!-- start of form-element -->
+            <div class="form-element-row">
+                <div class="mb-3">
+                    <a href="#">
+                        کلمه عبورم را فراموش کرده ام
+                    </a>
+                </div>
+                <div class="mb-3">
+                    با ورود و یا ثبت نام در سایت شما <a href="#" class="link">
+                        شرایط و
+                        قوانین
+                    </a> استفاده
+                    از تمام سرویس های
+                    سایت و <a href="#" class="link">قوانین حریم خصوصی</a> آن را می‌پذیرید.
+                </div>
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+            <!-- end of form-element -->
+        </form>
+        <!-- end of auth-form -->
+    </div>
+    <!-- end of auth-box -->
+</div>
+<!-- start of auth-container -->
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function() {
+            $('#refreshCaptcha').click(function() {
+                $.ajax({
+                    url: '@Url.Action("RefreshCaptcha", "Account")',
+                    type: 'GET',
+                    success: function(response) {
+                        // تغییر src تصویر به تصویر جدید
+                        $('#captchaImage').attr('src', response.imageData);
+                        // پاک کردن پاسخ قبلی
+                        $('#CaptchaAnswer').val('');
+                    },
+                    error: function(xhr, status, error) {
+                        alert('خطا در تغییر کد امنیتی: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+}

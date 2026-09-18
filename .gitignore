@@ -362,23 +362,23 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-ShopStock.Web/wwwroot/ProductImages/*
-!ShopStock.Web/wwwroot/ProductImages/.gitkeep
-!ShopStock.Web/wwwroot/ProductImages/NoPhoto.jpg
+OnlineShop.Web/wwwroot/ProductImages/*
+!OnlineShop.Web/wwwroot/ProductImages/.gitkeep
+!OnlineShop.Web/wwwroot/ProductImages/NoPhoto.jpg
 
-!ShopStock.Web/wwwroot/ProductImages/Thumb/
-ShopStock.Web/wwwroot/ProductImages/Thumb/*
-!ShopStock.Web/wwwroot/ProductImages/Thumb/.gitkeep
-!ShopStock.Web/wwwroot/ProductImages/Thumb/NoPhoto.jpg
+!OnlineShop.Web/wwwroot/ProductImages/Thumb/
+OnlineShop.Web/wwwroot/ProductImages/Thumb/*
+!OnlineShop.Web/wwwroot/ProductImages/Thumb/.gitkeep
+!OnlineShop.Web/wwwroot/ProductImages/Thumb/NoPhoto.jpg
 
-ShopStock.Web/wwwroot/CategoryImages/*
-!ShopStock.Web/wwwroot/CategoryImages/.gitkeep
-!ShopStock.Web/wwwroot/CategoryImages/NoPhoto.jpg
+OnlineShop.Web/wwwroot/CategoryImages/*
+!OnlineShop.Web/wwwroot/CategoryImages/.gitkeep
+!OnlineShop.Web/wwwroot/CategoryImages/NoPhoto.jpg
 
-ShopStock.Web/wwwroot/Avatars/*
-!ShopStock.Web/wwwroot/Avatars/.gitkeep
-!ShopStock.Web/wwwroot/Avatars/NoPhoto.jpg
+OnlineShop.Web/wwwroot/Avatars/*
+!OnlineShop.Web/wwwroot/Avatars/.gitkeep
+!OnlineShop.Web/wwwroot/Avatars/NoPhoto.jpg
 
 # EF Core Migrations
-ShopStock.Infra.Data/Migrations/*
-!ShopStock.Infra.Data/Migrations/.gitkeep
+OnlineShop.Infra.Data/Migrations/*
+!OnlineShop.Infra.Data/Migrations/.gitkeep

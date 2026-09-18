@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <partial name="_MetaTags" />
+    <title>فروشگاه آنلاین | @ViewBag.Title</title>
+    <partial name="_StyleRefrences" />
+    @RenderSection("Header", false)
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <partial name="_Header" />
+        <main class="page-content">
+            @RenderBody();
+        </main>
+        <!-- end of page-content -->
+        <partial name="_Footer" />
+    </div>
+    <partial name="_ScriptRefrences" />
+    <partial name="_ValidationScriptsPartial" />
+    @RenderSection("Scripts",false)
+
+
+    <!-- start of quick-view-modal -->
+    <div class="remodal remodal-lg" data-remodal-id="quick-view-modal"
+         data-remodal-options="hashTracking: false" id="descProduct">
+
+    </div>
+    <!-- end of quick-view-modal -->
+    <script>
+        function ShowDescModal(id)
+        {
+            $.get("/Product/ShortDescProduct/"+id,function(res)
+            {
+                $("#descProduct").html(res);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

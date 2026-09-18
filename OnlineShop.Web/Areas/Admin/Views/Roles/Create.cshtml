@@ -1,0 +1,112 @@
+﻿@using OnlineShop.Domain.ViewModels.Roles
+@model AdminCreateRoleViewModel
+
+@{
+    ViewData["Title"] = "افزودن نقش";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <form asp-action="Create" class="row">
+        <div class="col-md-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                <input asp-for="RoleName" class="form-control" placeholder="نام نقش را وارد کنید" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            </div>
+            <div style="margin-top:15px">
+
+                <input type="submit" value="ثبت" class="btn btn-primary btn-block" />
+
+            </div>
+        </div>
+        <div class="col-md-7">
+            <br />
+
+            <div class="card">
+                <h5 class="card-header">دسترسی ها</h5>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var item in Model.Permissions.Where(p => p.ParentId == null))
+                        {
+                            <div class="col-md mb-md-0 mb-2">
+                                <div class="form-check custom-option custom-option-basic checked">
+                                    <label class="form-check-label custom-option-content" for="customCheckTemp_@(item.Id)">
+                                        <input class="form-check-input" name="PermissionSelectedIds" type="checkbox" value="@item.Id" id="customCheckTemp_@(item.Id)">
+                                        <span class="custom-option-header">
+                                            <span class="h6 mb-0">@item.DisplayName</span>
+                                            @if (Model.Permissions.Any(p => p.ParentId == item.Id))
+                                            {
+                                                <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@(item.Id)" aria-expanded="true">
+                                                    ▼
+                                                </button>
+                                            }
+                                        </span>
+                                    </label>
+                                </div>
+                                @if (Model.Permissions.Any(p => p.ParentId == item.Id))
+                                {
+                                    <div class="collapse show" id="collapse_@(item.Id)">
+                                        @foreach (var sub1 in Model.Permissions.Where(p => p.ParentId == item.Id))
+                                        {
+                                            <div class="col-md mb-md-0 mb-2" style="margin-left: 25px">
+                                                <div class="form-check custom-option custom-option-basic checked">
+                                                    <label class="form-check-label custom-option-content" for="customCheckTemp_@(sub1.Id)">
+                                                        <input class="form-check-input" name="PermissionSelectedIds" type="checkbox" value="@sub1.Id" id="customCheckTemp_@(sub1.Id)">
+                                                        <span class="custom-option-header">
+                                                            <span class="h6 mb-0">@sub1.DisplayName</span>
+                                                            @if (Model.Permissions.Any(p => p.ParentId == sub1.Id))
+                                                            {
+                                                                <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@(sub1.Id)" aria-expanded="true">
+                                                                    ▼
+                                                                </button>
+                                                            }
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                @if (Model.Permissions.Any(p => p.ParentId == sub1.Id))
+                                                {
+                                                    <div class="collapse" id="collapse_@(sub1.Id)">
+                                                        @foreach (var sub2 in Model.Permissions.Where(p => p.ParentId == sub1.Id))
+                                                        {
+                                                            <div class="col-md mb-md-0 mb-2" style="margin-left: 50px">
+                                                                <div class="form-check custom-option custom-option-basic checked">
+                                                                    <label class="form-check-label custom-option-content" for="customCheckTemp_@(sub2.Id)">
+                                                                        <input class="form-check-input" name="PermissionSelectedIds" type="checkbox" value="@sub2.Id" id="customCheckTemp_@(sub2.Id)">
+                                                                        <span class="custom-option-header">
+                                                                            <span class="h6 mb-0">@sub2.DisplayName</span>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a class="btn btn-outline-reddit" asp-action="Index">بازگشت به لیست نقش‌ها</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/permission-checkboxes.js"></script>
+}

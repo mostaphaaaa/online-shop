@@ -1,0 +1,37 @@
+﻿@using OnlineShop.Domain.Models.Categories
+@model IEnumerable<Category>
+<div class="vertical-menu">
+    <a href="#" class="vertical-menu-btn">دسته بندی کالاها <i class="ri-apps-fill icon"></i></a>
+    <div class="vertical-menu-items">
+        <ul>
+            @{
+                bool isShow = false;
+            }
+            @foreach (var parent in Model.Where(c => c.ParentId == null))
+            {
+                <li class="mega-menu-category @((!isShow) ? "show" : "") ">
+                    @{
+                        isShow = true;
+                    }
+                    <a href="/Category/@parent.Slug">@parent.Title </a>
+                    @if (Model.Any(c => c.ParentId == parent.Id))
+                    {
+                        <ul class="mega-menu">
+                            @foreach (var category in Model.Where(c => c.ParentId == parent.Id))
+                            {
+                                <li class="parent"><a href="/Category/@category.Slug">@category.Title</a></li>
+                                @if (Model.Any(c => c.ParentId == category.Id))
+                                {
+                                    foreach (var subCategory in Model.Where(c => c.ParentId == category.Id))
+                                    {
+                                        <li><a href="/Category/@subCategory.Slug">@subCategory.Title</a></li>
+                                    }
+                                }
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</div>

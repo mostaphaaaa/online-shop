@@ -1,0 +1,37 @@
+﻿@using OnlineShop.Application.Services.Interfaces
+@inject ICategoryService _categoryService
+@{
+    var data = await _categoryService.GetAllCategoryForMegaMenu();
+}
+<div class="ui-box mb-5">
+    <div class="ui-box-title">دسته بندی محصولات</div>
+    <div class="ui-box-content">
+        <div class="categories-container">
+            <!-- Slider main container -->
+            <div class="swiper category-swiper-slider pb-5">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    @foreach (var item in data.Where(c=>c.ParentId==null))
+                    {
+                        <div class="swiper-slide">
+                            <div class="category-item">
+                                <a href="Category/@item.Slug">
+                                    <img src="/CategoryImages/@item.ImageName" class="category-img"
+                                         alt="@item.Title">
+                                    <span class="category-title">@item.Title</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </div>
+</div>

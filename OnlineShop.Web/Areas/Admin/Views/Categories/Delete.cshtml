@@ -1,0 +1,86 @@
+﻿@model OnlineShop.Domain.Models.Categories.Category
+
+@{
+    ViewData["Title"] = "حذف گروه";
+}
+
+<h1 class="text-danger mb-4">@ViewData["Title"]</h1>
+
+<div class="alert alert-warning shadow-sm">
+    <h4 class="mb-0">
+        آیا از حذف گروه  
+        <strong class="text-primary">'@Model.Title'</strong>  
+        مطمئن هستید؟
+    </h4>
+</div>
+
+<hr />
+
+<div class="row mt-4 g-4">
+    <!-- اطلاعات -->
+    <div class="col-12 col-md-7">
+        <dl class="row bg-light p-3 rounded shadow-sm">
+            <dt class="col-sm-4 fw-bold">عنوان دسته بندی:</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Title)</dd>
+
+            <dt class="col-sm-4 fw-bold">عنوان در آدرس بار:</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Slug)</dd>
+
+            <dt class="col-sm-4 fw-bold">وضعیت:</dt>
+            <dd class="col-sm-8">
+                @(Model.IsDelete ? "حذف شده" : "فعال")
+            </dd>
+
+            <dt class="col-sm-4 fw-bold">تاریخ ایجاد:</dt>
+            <dd class="col-sm-8">@Model.CreateDate.ToShamsi()</dd>
+
+            @if (Model.UpdateDate != null)
+            {
+                <dt class="col-sm-4 fw-bold">تاریخ ویرایش:</dt>
+                <dd class="col-sm-8">@Model.UpdateDate?.ToShamsi()</dd>
+            }
+        </dl>
+    </div>
+
+    <!-- تصویر -->
+    <div class="col-12 col-md-5 text-center">
+        <div class="image-wrapper mx-auto">
+            <img src="~/CategoryImages/@Model.ImageName"
+                 class="img-fluid rounded shadow-lg category-image" />
+        </div>
+    </div>
+</div>
+
+<form asp-action="Delete" class="mt-4 d-flex flex-wrap gap-2">
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger px-4">
+        حذف دسته بندی
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        بازگشت به لیست
+    </a>
+</form>
+
+<style>
+    /* استایل حرفه‌ای برای تصویر */
+    .image-wrapper {
+        max-width: 250px;
+        max-height: 10px;
+        position: relative;
+    }
+
+    .category-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 12px;
+        transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .category-image:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+</style>

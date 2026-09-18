@@ -1,0 +1,106 @@
+﻿@using OnlineShop.Domain.ViewModels.Product
+@model AdminFilterProductViewModel
+@{
+    ViewData["Title"] = "لیست محصولات";
+}
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">محصولات /</span> @ViewData["Title"]</h4>
+<div class="row">
+    <div class="row">
+        <div class="card mb-2">
+            <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="m-0">فیلترها</h5>
+                <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#filterCardBody" aria-expanded="false" aria-controls="filterCardBody">
+                    @* <i class="bi bi-chevron-down"></i> *@
+                    Open
+                </button>
+            </div>
+            <div class="collapse" id="filterCardBody">
+                <form asp-action="Index" method="get" id="filter-search">
+                    <input asp-for="PageId" type="hidden" id="PageId" />
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Title" class="form-label"></label>
+                                <input asp-for="Title" class="form-control">
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">جستجو</button>
+                            <a asp-action="Index" class="btn btn-label-secondary">حذف</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p>
+            <a asp-action="Create" class="btn btn-outline-info me-sm-3 me-1 rounded-pill">افزودن کالا جدید</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        تصویر کالا
+                    </th>
+                    <th>
+                        عنوان
+                    </th>
+                    <th>
+                        دسته بندی
+                    </th>
+                    <th>
+                        قیمت
+                    </th>
+                    <th>
+                        وضعیت
+                    </th>
+                    <th>
+                        تاریخ ایجاد
+                    </th>
+                    <th>دستورات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Entities)
+
+                {
+                    <tr class="@(item.IsDelete ? "table-danger" : "")">
+                        <td>
+                            <img src="/ProductImages/@item.ImageName" class="user-profile-img" style="max-width: 75px;border-radius: 15px;" />
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                        <td>
+                            @item.CategoryName
+                        </td>
+                        <td>
+                            <span class="badge bg-label-success rounded-pill">@item.Price.ToTooman()</span>
+                        </td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span class="badge bg-label-success rounded-pill">فعال</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-label-danger rounded-pill">غیر فعال</span>
+                            }
+                        </td>
+                        <td>
+                            @item.CreateDate.ToShamsi()
+                        </td>
+                        <td>
+                            <a class="btn  btn-label-facebook" asp-controller="ProductFeatures" asp-action="Index" asp-route-id="@item.Id">ویژگی ها</a>
+                            <a class="btn  btn-label-info" asp-controller="ProductColors" asp-action="Index" asp-route-id="@item.Id">رنگ ها</a>
+                            <a class="btn  btn-label-warning" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
+                            <a class="btn  btn-label-danger delete-btn" asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<partial name="_AdminPagination" model="@Model.GetCurrentPaging()" />

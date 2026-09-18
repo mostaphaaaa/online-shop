@@ -1,0 +1,89 @@
+﻿@using OnlineShop.Domain.ViewModels.Account
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "ثبت نام";
+}
+@{
+    TempData.Keep("Captcha");
+}
+
+<!-- start of auth-container -->
+<div class="auth-container">
+    <div class="auth-title mb-3">ثبت نام </div>
+    <!-- start of auth-box -->
+    <div class="auth-box ui-box">
+        <!-- start of auth-form -->
+        <form asp-action="Register" class="auth-form">
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+            <!-- start of form-element -->
+            <div class="form-element-row mb-1">
+                <input asp-for="UserName" class="form-control" placeholder="نام کاربری را وارد کنید">
+            </div>
+            <div class="form-element-row mb-1">
+                <input asp-for="Email" class="form-control" placeholder="ایمیل را وارد کنید">
+            </div>
+            <div class="form-element-row mb-1">
+                <input asp-for="Password" class="form-control" placeholder="کلمه عبور را وارد کنید">
+            </div>
+            <div class="form-element-row mb-1">
+                <input asp-for="RePassword" class="form-control" placeholder="تکرار کلمه عبور را وارد کنید">
+            </div>
+            <!-- end of form-element -->
+            <!-- start of form-element -->
+            <div class="form-element-row mb-3">
+                <button class="btn btn-primary">ثبت نام</button>
+            </div>
+            <!-- end of form-element -->
+            <!-- start of form-element -->
+            <div class="form-element-row">
+                <div class="card-body p-3">
+                    <div class="row align-items-center">
+                        <!-- تصویر کپچا -->
+                        <div class="col-auto">
+                            <img id="captchaImage" src="@Model.ImageData" class="rounded" style="height: 40px;" />
+                            <button type="button" id="refreshCaptcha" class="btn btn-sm btn-link text-decoration-none p-0">
+                                🔄
+                            </button>
+                        </div>
+                        <div class="col">
+                            <input asp-for="CaptchaAnswer" class="form-control" placeholder="عبارت امنیتی" style="font-size: 13px;"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    با ورود و یا ثبت نام در سایت شما <a href="#" class="link">شرایط و قوانین</a> استفاده از تمام سرویس های سایت و <a href="#" class="link">قوانین حریم خصوصی</a> آن را می‌پذیرید.
+                </div>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+            <!-- end of form-element -->
+        </form>
+        <!-- end of auth-form -->
+    </div>
+    <!-- end of auth-box -->
+</div>
+<!-- start of auth-container -->
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function() {
+            $('#refreshCaptcha').click(function() {
+                $.ajax({
+                    url: '@Url.Action("RefreshCaptcha", "Account")',
+                    type: 'GET',
+                    success: function(response) {
+                        // تغییر src تصویر به تصویر جدید
+                        $('#captchaImage').attr('src', response.imageData);
+                        // پاک کردن پاسخ قبلی
+                        $('#CaptchaAnswer').val('');
+                    },
+                    error: function(xhr, status, error) {
+                        alert('خطا در تغییر کد امنیتی: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+}
