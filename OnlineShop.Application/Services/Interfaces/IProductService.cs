@@ -20,6 +20,7 @@ namespace OnlineShop.Application.Services.Interfaces
         Task<string?> GetProductTitleAsync(int productId);
 
         Task<IEnumerable<Product>> GetTopProductsForShowAsync();
+        Task<IEnumerable<Product>> GetProductsByCategorySlug(string slug);
         Task<Product> GetProductForShortDescById(int productId);
     }
 }

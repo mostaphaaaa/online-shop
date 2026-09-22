@@ -253,9 +253,9 @@
                 <td>@item.CreateDate.ToShamsi()</td>
                 <td>@item.UpdateDate?.ToShamsi()</td>
                 <td>
-                    <a class="btn rounded-pill btn-label-warning" asp-area="Admin" asp-controller="Roles" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
+                    <a class="btn btn-label-warning" asp-area="Admin" asp-controller="Roles" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
                     <!-- این دکمه حذف جدید برای مودال -->
-                    <button class="btn rounded-pill btn-label-danger delete-btn" data-id="@item.Id">
+                    <button class="btn btn-label-danger delete-btn" data-id="@item.Id">
                         حذف
                     </button>
                 </td>

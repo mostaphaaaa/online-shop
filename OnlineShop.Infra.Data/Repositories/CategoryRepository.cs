@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.Contracts;
 using OnlineShop.Domain.Models.Categories;
+using OnlineShop.Domain.Models.Products;
 using OnlineShop.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,15 @@ namespace OnlineShop.Infra.Data.Repositories
         public async Task<Category?> GetCategoryById(int id)
         {
             return await _context.Categories.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsBySlug(string slug)
+        {
+            return await  _context.Products
+                .Where(p=>p.Category.Slug == slug 
+                || p.Category.Parent.Slug == slug 
+                || p.Category.Parent.Parent.Slug == slug)        
+                .ToListAsync();
         }
 
         public Task<bool> IsExistSlug(string slug)

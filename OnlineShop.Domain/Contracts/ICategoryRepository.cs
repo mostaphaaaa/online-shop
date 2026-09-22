@@ -1,4 +1,5 @@
 ﻿using OnlineShop.Domain.Models.Categories;
+using OnlineShop.Domain.Models.Products;
 using OnlineShop.Domain.ViewModels.Category;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace OnlineShop.Domain.Contracts
     {
         Task<Category?> GetCategoryById(int id);
         Task<IEnumerable<Category>> GetAllCategoryForMegaMenu();
+        Task<IEnumerable<Product>> GetProductsBySlug(string slug);
         Task<IQueryable<Category>> FilterAsync();
 
         Task<bool> IsExistSlug(string slug);

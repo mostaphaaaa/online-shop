@@ -14,7 +14,7 @@ using System.Text.Json;
 
 namespace OnlineShop.Application.Services.Implementation
 {
-    public class ProductService(IProductRepository _productRepository) : IProductService
+    public class ProductService(IProductRepository _productRepository, ICategoryRepository _categoryRepository) : IProductService
     {
         public async Task<AdminFilterProductViewModel> FilterProductsAsync(AdminFilterProductViewModel filter)
         {
@@ -159,7 +159,7 @@ namespace OnlineShop.Application.Services.Implementation
             {
                 var tags = JsonSerializer.Deserialize<List<ProductTagViewModel>>(model.Tags);
                 await _productRepository.AddProductTagsAsync(product.Id, tags);
-            }   
+            }
             #endregion
 
             #region Edit Product Galleries 
@@ -208,9 +208,9 @@ namespace OnlineShop.Application.Services.Implementation
             _productRepository.Update(product);
             await _productRepository.SaveAsync();
         }
-            
 
-            #region Utilities (Save & Delete Image File)
+
+        #region Utilities (Save & Delete Image File)
         private async Task<string> SaveImageFileAsync(IFormFile imageFile)
         {
 
@@ -259,13 +259,17 @@ namespace OnlineShop.Application.Services.Implementation
 
         public async Task<IEnumerable<Product>> GetTopProductsForShowAsync()
         {
-            var data =await _productRepository.GetTopProductsForShowAsync();
-            return data;
+            return await _productRepository.GetTopProductsForShowAsync();
         }
 
         public async Task<Product> GetProductForShortDescById(int productId)
         {
             return await _productRepository.GetProductForShortDescByIdAsync(productId);
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsByCategorySlug(string slug)
+        {
+            return await _categoryRepository.GetProductsBySlug(slug);
         }
     }
 }

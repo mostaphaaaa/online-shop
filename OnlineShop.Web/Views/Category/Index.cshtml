@@ -1,0 +1,17 @@
+﻿@using OnlineShop.Domain.Models.Products
+@model IEnumerable<Product>
+
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <partial name="_ProductItem" model="product" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
