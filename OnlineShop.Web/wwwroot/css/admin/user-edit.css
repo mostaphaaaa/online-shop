@@ -1,0 +1,18 @@
+﻿.avatar-preview-wrapper {
+    max-width: 250px;
+    margin: auto;
+}
+
+.avatar-preview {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #eee;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+    .avatar-preview:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }

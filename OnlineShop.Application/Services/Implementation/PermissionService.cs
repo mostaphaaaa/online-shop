@@ -17,7 +17,7 @@ namespace OnlineShop.Application.Services.Implementation
 
             var permission = await permissionRepository.GetPermissionByNameAsync(permissionName);
             if (permission == null) return false;
-
+            
             return user.UserInRoles.Any(
                 s => permission.RolePermissionMappings.Any(p => p.RoleId == s.RoleId)
                 );

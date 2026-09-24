@@ -271,5 +271,13 @@ namespace OnlineShop.Application.Services.Implementation
         {
             return await _categoryRepository.GetProductsBySlug(slug);
         }
+
+        public async Task SoftDeleteProduct(int productId)
+        {
+            var product=await _productRepository.GetByIdAsync(productId);
+            product.IsDelete = true;
+            product.DeleteDate = DateTime.Now;
+            await _productRepository.SaveAsync();
+        }
     }
 }

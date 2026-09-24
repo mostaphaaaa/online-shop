@@ -2,93 +2,159 @@
 @model AdminFilterCategoryViewModel
 
 @{
-    ViewData["Title"] = "لیست دسته بندی ها ";
+    ViewData["Title"] = "لیست دسته بندی ها";
     ViewBag.Url = "/Admin/Categories";
 }
+<link rel="stylesheet" href="~/css/admin/category-index.css" />
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">دسته بندی ها /</span>
+    @ViewData["Title"]
+</h4>
 
-<h1>@ViewData["Title"]</h1>
+<!-- Actions -->
+<div class="mb-4">
+    <a asp-action="Create"
+       asp-route-id="@Model.ParentId"
+       class="btn btn-outline-success me-sm-3 me-1">
+        افزودن دسته بندی جدید
+    </a>
 
-<p>
-    <a asp-action="Create" asp-route-id="@Model.ParentId" class="btn btn-outline-success me-sm-3 me-1">افزودن دسته بندی جدید</a>
-    <a asp-action="Index" class="btn btn-outline-primary me-sm-3 me-1">بازگشت به لیست دسته بندی ها</a>
-</p>
-<div class="row">
-    <div class="row">
-        <div class="card mb-2">
-            <div class="card-header border-bottom d-flex justify-content-between align-items-center">
-                <h5 class="m-0">فیلترها</h5>
-                <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#filterCardBody" aria-expanded="false" aria-controls="filterCardBody">
-                    @* <i class="bi bi-chevron-down"></i> *@
-                    Open
-                </button>
-            </div>
-            <div class="collapse" id="filterCardBody">
-                <form asp-action="Index" method="get" id="filter-search">
-                    <input asp-for="PageId" type="hidden" id="PageId" />
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label asp-for="Title" class="form-label"></label>
-                                <input asp-for="Title" class="form-control">
-                            </div>
-                            <div class="col-md-4 user_status">
-                                <select asp-for="DeleteStatus" class="form-select text-capitalize">
-                                    <option value="">وضعیت حذف</option>
-                                    <option value="َAll" class="text-capitalize">همه</option>
-                                    <option value="Deleted" class="text-capitalize">حذف شده</option>
-                                    <option value="NotDeleted" class="text-capitalize">حذف نشده</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="pt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">جستجو</button>
-                            <a asp-action="Index" class="btn btn-label-secondary">حذف</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <a asp-action="Index"
+       class="btn btn-outline-primary">
+        بازگشت به لیست دسته بندی ها
+    </a>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+        <h5 class="m-0">فیلترها</h5>
+
+        <button class="btn btn-sm btn-link"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#filterCardBody"
+                aria-expanded="false"
+                aria-controls="filterCardBody">
+            نمایش فیلترها
+        </button>
     </div>
-    <div class="row">
-        @if (ViewBag.Create == "Success")
-        {
-            <div class="alert alert-success">
-                <h6>دسته بندی با موفقیت ثبت شد</h6>
+
+    <div class="collapse" id="filterCardBody">
+        <form asp-action="Index" method="get" id="filter-search">
+
+            <input asp-for="PageId" type="hidden" id="PageId" />
+
+            <div class="card-body">
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label asp-for="Title" class="form-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="DeleteStatus" class="form-label">
+                            وضعیت حذف
+                        </label>
+
+                        <select asp-for="DeleteStatus"
+                                class="form-select">
+                            <option value="">وضعیت حذف</option>
+                            <option value="All">همه</option>
+                            <option value="Deleted">حذف شده</option>
+                            <option value="NotDeleted">حذف نشده</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit"
+                            class="btn btn-primary me-sm-3 me-1">
+                        جستجو
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-label-secondary">
+                        حذف
+                    </a>
+                </div>
             </div>
-        }
+
+        </form>
+    </div>
+</div>
+
+<!-- Success Message -->
+@if (ViewBag.Create == "Success")
+{
+    <div class="alert alert-success">
+        <h6 class="mb-0">دسته بندی با موفقیت ثبت شد</h6>
+    </div>
+}
+
+<!-- Categories -->
+<div class="card">
+
+    <div class="card-header">
+        <h5 class="m-0">دسته بندی ها</h5>
+    </div>
+
+    <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
-                    <th>
-                        تصویر گروه
-                    </th>
-                    <th>
-                        گروه اصلی
-                    </th>
-                    <th></th>
+                    <th>تصویر گروه</th>
+                    <th>گروه اصلی</th>
+                    <th>دستورات</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (var item in Model.Entities)
                 {
                     <tr class="@(item.IsDeleted ? "table-danger" : "")">
+
                         <td>
-                            <img src="/CategoryImages/@item.ImageName" class="user-profile-img" style="max-width: 75px;border-radius: 15px;" />
+                            <img src="/CategoryImages/@item.ImageName"
+                                 class="category-index-image" />
                         </td>
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.Title)
+                            @item.Title
                         </td>
+
                         <td>
-                            <a class="btn rounded-pill btn-label-facebook delete-btn" asp-action="SubCategory" asp-route-id="@item.Id">زیر گروه ها</a>
-                            <a class="btn rounded-pill btn-label-warning" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
-                            <a class="btn rounded-pill btn-label-danger delete-btn" asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                            <div class="category-actions">
+
+                                <a class="btn rounded-pill btn-label-facebook"
+                                   asp-action="SubCategory"
+                                   asp-route-id="@item.Id">
+                                    زیر گروه ها
+                                </a>
+
+                                <a class="btn rounded-pill btn-label-warning"
+                                   asp-action="Edit"
+                                   asp-route-id="@item.Id">
+                                    ویرایش
+                                </a>
+
+                                <a class="btn rounded-pill btn-label-danger delete-btn"
+                                   asp-action="Delete"
+                                   asp-route-id="@item.Id">
+                                    حذف
+                                </a>
+
+                            </div>
                         </td>
+
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-</div>
 
+</div>
 
 <partial name="_AdminPagination" model="@Model.GetCurrentPaging()" />

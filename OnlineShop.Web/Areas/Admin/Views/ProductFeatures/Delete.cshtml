@@ -5,50 +5,70 @@
     ViewData["Title"] = "حذف ویژگی";
 }
 
-<h4>@ViewData["Title"]</h4>
+<h4 class="fw-bold py-3 mb-4 text-danger">
+    @ViewData["Title"]
+</h4>
 
-<h3>آیا از حذف مطمئن هستید؟</h3>
-<hr />
-<div>
-    
+<div class="alert alert-danger shadow-sm mb-4">
+    <h5 class="mb-0">
+        آیا از حذف این ویژگی مطمئن هستید؟
+    </h5>
+</div>
 
-    <dl class="row">
-        <dt class = "col-sm-2">
-            عنوان ویزگی
+<div class="bg-light p-4 rounded shadow-sm">
+
+    <dl class="row mb-0">
+
+        <dt class="col-sm-3 fw-bold">
+            عنوان ویژگی
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+        <dd class="col-sm-9">
+            @Model.Name
         </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3 fw-bold">
             مقدار
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Value)
+        <dd class="col-sm-9">
+            @Model.Value
         </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-           تاریخ ایجاد
+
+        <dt class="col-sm-3 fw-bold">
+            تاریخ ایجاد
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Model.CreateDate.ToShamsi()
         </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3 fw-bold">
             آخرین ویرایش
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Model.UpdateDate?.ToShamsi()
         </dd>
+
     </dl>
-    <dl class="row">
-    </dl>
+
+</div>
+
+<div class="mt-4 d-flex flex-wrap gap-2">
+
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index"asp-route-id="@Model.ProductId" >بازگشت</a>
+
+        <input type="hidden"
+               asp-for="Id" />
+
+        <button type="submit"
+                class="btn btn-danger px-4">
+            حذف ویژگی
+        </button>
+
     </form>
+
+    <a asp-action="Index"
+       asp-route-id="@Model.ProductId"
+       class="btn btn-label-secondary">
+        بازگشت
+    </a>
+
 </div>

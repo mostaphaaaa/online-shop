@@ -4,62 +4,132 @@
 @{
     ViewData["Title"] = "رنگ بندی های محصول: " + ViewBag.ProductTitle;
 }
+<link rel="stylesheet" href="~/css/admin/product-color-index.css" />
 
-<h1>@ViewData["Title"]</h1>
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">محصولات / رنگ‌ها /</span>
+    @ViewBag.ProductTitle
+</h4>
 
-<p>
-    <a asp-action="Create" class="btn btn-outline-primary" asp-route-id="@ViewBag.ProductId">افزودن رنگ جدید</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                عنوان رنگ
-            </th>
-            <th>
-                کد رنگ
-            </th>
-            <th>
-                قیمت
-            </th>
-            <th>
-                موجودی
-            </th>
-            <th>
-                پیش‌فرض
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.Name)
-                </td>
-                <td>
-                    <span style="color: @item.Code">@item.Code</span>
-                </td>
-                <td>
-                    @item.Price.ToTooman()
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.IsDefault)
-                </td>
-                <td>
-                    <a asp-action="IsDefault" class="btn accent" asp-route-id="@item.Id">پیش‌فرض</a>
-                    <a asp-action="Edit" class="btn btn-outline-warning" asp-route-id="@item.Id">ویرایش</a>
-                    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">حذف</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="card">
 
-<div>
-    <a asp-action="Index" asp-Controller="Products" class="btn btn-outline-reddit">بازگشت به لیست محصولات</a>
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+        <h5 class="m-0">
+            رنگ بندی محصول
+        </h5>
+
+        <a asp-action="Create"
+           asp-route-id="@ViewBag.ProductId"
+           class="btn btn-outline-primary">
+            افزودن رنگ جدید
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>رنگ</th>
+                    <th>کد رنگ</th>
+                    <th>قیمت</th>
+                    <th>موجودی</th>
+                    <th>وضعیت</th>
+                    <th>دستورات</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <div class="color-name">
+                                <span class="color-swatch"
+                                      style="background-color: @item.Code;">
+                                </span>
+
+                                <span>
+                                    @item.Name
+                                </span>
+                            </div>
+                        </td>
+
+                        <td>
+                            <code>@item.Code</code>
+                        </td>
+
+                        <td>
+                            <span class="badge bg-label-success">
+                                @item.Price.ToTooman()
+                            </span>
+                        </td>
+
+                        <td>
+                            @item.Quantity
+                        </td>
+
+                        <td>
+                            @if (item.IsDefault)
+                            {
+                                <span class="badge bg-label-primary">
+                                    پیش‌فرض
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-label-secondary">
+                                    عادی
+                                </span>
+                            }
+                        </td>
+
+                        <td>
+                            <div class="product-color-actions">
+
+                                <a asp-action="IsDefault"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-label-primary">
+                                    پیش‌فرض
+                                </a>
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-label-warning">
+                                    ویرایش
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-label-danger">
+                                    حذف
+                                </a>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="mt-4">
+
+    <a asp-action="Index"
+       asp-controller="Products"
+       class="btn btn-label-secondary">
+        بازگشت به لیست محصولات
+    </a>
+
 </div>

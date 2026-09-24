@@ -1,101 +1,180 @@
 ﻿@using OnlineShop.Domain.ViewModels.Product
 @model AdminFilterProductViewModel
+
 @{
     ViewData["Title"] = "لیست محصولات";
 }
-<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">محصولات /</span> @ViewData["Title"]</h4>
-<div class="row">
-    <div class="row">
-        <div class="card mb-2">
-            <div class="card-header border-bottom d-flex justify-content-between align-items-center">
-                <h5 class="m-0">فیلترها</h5>
-                <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#filterCardBody" aria-expanded="false" aria-controls="filterCardBody">
-                    @* <i class="bi bi-chevron-down"></i> *@
-                    Open
-                </button>
-            </div>
-            <div class="collapse" id="filterCardBody">
-                <form asp-action="Index" method="get" id="filter-search">
-                    <input asp-for="PageId" type="hidden" id="PageId" />
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label asp-for="Title" class="form-label"></label>
-                                <input asp-for="Title" class="form-control">
-                            </div>
-                        </div>
-                        <div class="pt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">جستجو</button>
-                            <a asp-action="Index" class="btn btn-label-secondary">حذف</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
+
+<link href="~/css/admin/product-index.css" rel="stylesheet" />
+
+<!-- Delete Modal -->
+<div id="deleteModal" class="modal-overlay hidden">
+    <div class="modal-box">
+        <h3>آیا از حذف این مورد مطمئن هستید؟</h3>
+
+        <div class="modal-actions">
+            <button id="confirmDelete" class="btn-gradient">
+                بله حذف کن
+            </button>
+
+            <button id="cancelDelete" class="btn-cancel">
+                انصراف
+            </button>
         </div>
     </div>
-    <div class="row">
-        <p>
-            <a asp-action="Create" class="btn btn-outline-info me-sm-3 me-1">افزودن کالا جدید</a>
-        </p>
+</div>
+
+<form id="deleteForm" asp-action="DeleteConfirmed" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+<!-- Page Title -->
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">محصولات /</span>
+    @ViewData["Title"]
+</h4>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+        <h5 class="m-0">فیلترها</h5>
+
+        <button class="btn btn-sm btn-link"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#filterCardBody"
+                aria-expanded="false"
+                aria-controls="filterCardBody">
+            نمایش فیلترها
+        </button>
+    </div>
+
+    <div class="collapse" id="filterCardBody">
+        <form asp-action="Index" method="get" id="filter-search">
+            <input asp-for="PageId" type="hidden" id="PageId" />
+
+            <div class="card-body">
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label asp-for="Title" class="form-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="btn btn-primary me-sm-3 me-1">
+                        جستجو
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-label-secondary">
+                        حذف
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Products -->
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="m-0">محصولات</h5>
+
+        <a asp-action="Create" class="btn btn-outline-info">
+            افزودن کالای جدید
+        </a>
+    </div>
+
+    <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
-                    <th>
-                        تصویر کالا
-                    </th>
-                    <th>
-                        عنوان
-                    </th>
-                    <th>
-                        دسته بندی
-                    </th>
-                    <th>
-                        قیمت
-                    </th>
-                    <th>
-                        وضعیت
-                    </th>
-                    <th>
-                        تاریخ ایجاد
-                    </th>
+                    <th>تصویر کالا</th>
+                    <th>عنوان</th>
+                    <th>دسته بندی</th>
+                    <th>قیمت</th>
+                    <th>وضعیت</th>
+                    <th>تاریخ ایجاد</th>
                     <th>دستورات</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (var item in Model.Entities)
-
                 {
-                    <tr class="@(item.IsDelete ? "table-danger" : "")">
+                    <tr data-row="@item.Id"
+                        class="@(item.IsDelete ? "table-danger" : "")">
+
                         <td>
-                            <img src="/ProductImages/@item.ImageName" class="user-profile-img" style="max-width: 75px;border-radius: 15px;" />
+                            <img src="/ProductImages/@item.ImageName"
+                                 class="product-index-image" />
                         </td>
+
                         <td>
                             @item.Title
                         </td>
+
                         <td>
                             @item.CategoryName
                         </td>
+
                         <td>
-                            <span class="badge bg-label-success rounded-pill">@item.Price.ToTooman()</span>
+                            <span class="badge bg-label-success rounded-pill">
+                                @item.Price.ToTooman()
+                            </span>
                         </td>
+
                         <td>
                             @if (item.IsActive)
                             {
-                                <span class="badge bg-label-success rounded-pill">فعال</span>
+                                <span class="badge bg-label-success rounded-pill">
+                                    فعال
+                                </span>
                             }
                             else
                             {
-                                <span class="badge bg-label-danger rounded-pill">غیر فعال</span>
+                                <span class="badge bg-label-danger rounded-pill">
+                                    غیر فعال
+                                </span>
                             }
                         </td>
+
                         <td>
                             @item.CreateDate.ToShamsi()
                         </td>
+
                         <td>
-                            <a class="btn  btn-label-facebook" asp-controller="ProductFeatures" asp-action="Index" asp-route-id="@item.Id">ویژگی ها</a>
-                            <a class="btn  btn-label-info" asp-controller="ProductColors" asp-action="Index" asp-route-id="@item.Id">رنگ ها</a>
-                            <a class="btn  btn-label-warning" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
-                            <a class="btn  btn-label-danger delete-btn" asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                            <div class="product-actions">
+
+                                <a class="btn btn-label-facebook"
+                                   asp-controller="ProductFeatures"
+                                   asp-action="Index"
+                                   asp-route-id="@item.Id">
+                                    ویژگی ها
+                                </a>
+
+                                <a class="btn btn-label-info"
+                                   asp-controller="ProductColors"
+                                   asp-action="Index"
+                                   asp-route-id="@item.Id">
+                                    رنگ ها
+                                </a>
+
+                                <a class="btn btn-label-warning"
+                                   asp-action="Edit"
+                                   asp-route-id="@item.Id">
+                                    ویرایش
+                                </a>
+
+                                <button type="button"
+                                        class="btn btn-label-danger delete-btn"
+                                        data-id="@item.Id">
+                                    حذف
+                                </button>
+
+                            </div>
                         </td>
                     </tr>
                 }
@@ -103,4 +182,9 @@
         </table>
     </div>
 </div>
+
 <partial name="_AdminPagination" model="@Model.GetCurrentPaging()" />
+
+@section Scripts {
+    <script src="~/js/admin/product-index.js"></script>
+}

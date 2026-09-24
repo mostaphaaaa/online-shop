@@ -1,0 +1,10 @@
+﻿.category-index-image {
+    max-width: 75px;
+    border-radius: 15px;
+}
+
+.category-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}

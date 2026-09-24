@@ -74,6 +74,17 @@ namespace OnlineShop.Web.Areas.Admin.Controllers
 
         #endregion
 
+        #region Delete Product
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _productService.SoftDeleteProduct(id);
+            return Ok();
+        }
+        #endregion
+
 
         public async Task DeleteImage(int id)
         {

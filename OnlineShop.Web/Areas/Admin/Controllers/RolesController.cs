@@ -106,9 +106,11 @@ namespace OnlineShop.Web.Areas.Admin.Controllers
 
         // GET: Admin/Roles/Delete/5
         [PermissionChecker(PermissionName.DeleteRole)]
-        public async Task Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            Console.WriteLine($"DELETE ROLE: {id}");
             await _roleService.DeleteRole(id);
+            return Ok();
         }
 
     }

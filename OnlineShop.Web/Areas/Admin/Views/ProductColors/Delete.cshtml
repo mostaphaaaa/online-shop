@@ -2,66 +2,103 @@
 @model ProductColor
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "حذف رنگ";
 }
 
-<h1>Delete</h1>
+<link rel="stylesheet" href="~/css/admin/product-color-delete.css" />
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ProductColor</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductId)
+<h4 class="fw-bold py-3 mb-4 text-danger">
+    @ViewData["Title"]
+</h4>
+
+<div class="alert alert-danger shadow-sm mb-4">
+    <h5 class="mb-0">
+        آیا از حذف این رنگ مطمئن هستید؟
+    </h5>
+</div>
+
+<div class="bg-light p-4 rounded shadow-sm">
+
+    <dl class="row mb-0">
+
+        <dt class="col-sm-3 fw-bold">
+            عنوان رنگ
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductId)
+        <dd class="col-sm-9">
+            <div class="color-name">
+                <span class="color-swatch"
+                      style="background-color: @Model.Code;">
+                </span>
+
+                <span>
+                    @Model.Name
+                </span>
+            </div>
         </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+
+        <dt class="col-sm-3 fw-bold">
+            کد رنگ
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+        <dd class="col-sm-9">
+            <code>@Model.Code</code>
         </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Code)
+
+        <dt class="col-sm-3 fw-bold">
+            قیمت
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Code)
+        <dd class="col-sm-9">
+            <span class="badge bg-label-success">
+                @Model.Price.ToTooman()
+            </span>
         </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+
+        <dt class="col-sm-3 fw-bold">
+            موجودی
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+        <dd class="col-sm-9">
+            @Model.Quantity
         </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsDefault)
+
+        <dt class="col-sm-3 fw-bold">
+            وضعیت
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsDefault)
+        <dd class="col-sm-9">
+            @if (Model.IsDefault)
+            {
+                <span class="badge bg-label-primary">
+                    رنگ پیش‌فرض
+                </span>
+            }
+            else
+            {
+                <span class="badge bg-label-secondary">
+                    رنگ عادی
+                </span>
+            }
         </dd>
+
     </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-    </dl>
+
+</div>
+
+<div class="mt-4 d-flex flex-wrap gap-2">
+
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+
+        <input type="hidden"
+               asp-for="Id" />
+
+        <button type="submit"
+                class="btn btn-danger px-4">
+            حذف رنگ
+        </button>
+
     </form>
+
+    <a asp-action="Index"
+       asp-route-id="@Model.ProductId"
+       class="btn btn-label-secondary">
+        بازگشت به لیست رنگ‌ها
+    </a>
+
 </div>

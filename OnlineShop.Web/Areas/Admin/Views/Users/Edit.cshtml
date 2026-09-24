@@ -5,168 +5,268 @@
     ViewData["Title"] = "ویرایش کاربر";
 }
 
-<h1>@ViewData["Title"]</h1>
-<style>
-    input {
-        margin: 5px;
-    }
-</style>
-<hr />
-<div class="row">
-    @if (ViewBag.Error != null)
+<link rel="stylesheet" href="~/css/admin/user-edit.css" />
+
+<h4 class="fw-bold py-3 mb-4 text-warning">
+    @ViewData["Title"]
+</h4>
+
+@if (ViewBag.Error != null)
+{
+    var error = (AdminEditUserResult)ViewBag.Error;
+
+    switch (error)
     {
-        var error = (AdminEditUserResult)ViewBag.Error;
+        case AdminEditUserResult.EmailDuplicated:
+            <div class="alert alert-danger">
+                <h5 class="mb-0">
+                    ایمیل وارد شده تکراری است و قبلاً کاربری با این ایمیل ثبت شده
+                </h5>
+            </div>
+            break;
 
-        switch (error)
-        {
-            case AdminEditUserResult.EmailDuplicated:
-                {
-                    <div class="alert alert-danger">
-                        <h5>ایمیل وارد شده تکراری است و قبلا کاربری با این ایمیل ثبت شده</h5>
-                    </div>
-                    break;
-                }
+        case AdminEditUserResult.InvalidImage:
+            <div class="alert alert-danger">
+                <h5 class="mb-0">
+                    تصویر انتخاب شده معتبر نمی‌باشد
+                </h5>
+            </div>
+            break;
 
-            case AdminEditUserResult.InvalidImage:
-                {
-                    <div class="alert alert-danger">
-                        <h5>تصویر انتخاب شده معتبر نمیباشد</h5>
-                    </div>
-                    break;
-                }
-            case AdminEditUserResult.Error:
-                {
-                    <div class="alert alert-danger">
-                        <h5>اطلاعات را کامل کنید</h5>
-                    </div>
-                    break;
-                }
-            case AdminEditUserResult.MobileDuplicated:
-                {
-                    <div class="alert alert-danger">
-                        <h5>موبایل وارد شده تکراری است و قبلا کاربری با این موبایل ثبت شده</h5>
-                    </div>
-                    break;
-                }
-            case AdminEditUserResult.UserNameDuplicated:
-                {
-                    <div class="alert alert-danger">
-                        <h5>نام کاربری وارد شده تکراری است و قبلا کاربری با این نام کاربری ثبت شده</h5>
-                    </div>
-                    break;
-                }
-        }
+        case AdminEditUserResult.Error:
+            <div class="alert alert-danger">
+                <h5 class="mb-0">
+                    اطلاعات را کامل کنید
+                </h5>
+            </div>
+            break;
+
+        case AdminEditUserResult.MobileDuplicated:
+            <div class="alert alert-danger">
+                <h5 class="mb-0">
+                    موبایل وارد شده تکراری است و قبلاً کاربری با این موبایل ثبت شده
+                </h5>
+            </div>
+            break;
+
+        case AdminEditUserResult.UserNameDuplicated:
+            <div class="alert alert-danger">
+                <h5 class="mb-0">
+                    نام کاربری وارد شده تکراری است و قبلاً کاربری با این نام کاربری ثبت شده
+                </h5>
+            </div>
+            break;
     }
+}
 
-    <form asp-action="Edit" class="row" enctype="multipart/form-data">
-        <input type="hidden" asp-for="Id" />
-        <input type="hidden" asp-for="Avatar" />
+<form asp-action="Edit"
+      enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Avatar" />
+
+    <div class="row g-4">
+
+        <!-- User Information -->
         <div class="col-md-7">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mobile" class="control-label"></label>
-                <input asp-for="Mobile" class="form-control" />
-                <span asp-validation-for="Mobile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NationalCode" class="control-label"></label>
-                <input asp-for="NationalCode" class="form-control" />
-                <span asp-validation-for="NationalCode" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDelete" /> @Html.DisplayNameFor(model => model.IsDelete)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="ویرایش کاربر" class="btn btn-primary" />
+            <div class="bg-light p-4 rounded shadow-sm">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="FirstName"
+                           class="form-label fw-bold"></label>
+
+                    <input asp-for="FirstName"
+                           class="form-control" />
+
+                    <span asp-validation-for="FirstName"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LastName"
+                           class="form-label fw-bold"></label>
+
+                    <input asp-for="LastName"
+                           class="form-control" />
+
+                    <span asp-validation-for="LastName"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="UserName"
+                           class="form-label fw-bold"></label>
+
+                    <input asp-for="UserName"
+                           class="form-control" />
+
+                    <span asp-validation-for="UserName"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email"
+                           class="form-label fw-bold"></label>
+
+                    <input asp-for="Email"
+                           class="form-control" />
+
+                    <span asp-validation-for="Email"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Mobile"
+                           class="form-label fw-bold"></label>
+
+                    <input asp-for="Mobile"
+                           class="form-control" />
+
+                    <span asp-validation-for="Mobile"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="NationalCode"
+                           class="form-label fw-bold"></label>
+
+                    <input asp-for="NationalCode"
+                           class="form-control" />
+
+                    <span asp-validation-for="NationalCode"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input"
+                           asp-for="IsActive" />
+
+                    <label class="form-check-label"
+                           asp-for="IsActive">
+                    </label>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input"
+                           asp-for="IsDelete" />
+
+                    <label class="form-check-label"
+                           asp-for="IsDelete">
+                    </label>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="submit"
+                            class="btn btn-warning">
+                        ویرایش کاربر
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-label-secondary">
+                        بازگشت به لیست
+                    </a>
+                </div>
+
             </div>
         </div>
-        <div class="col-md-5">
-            <img style="margin:0 auto" src="/Avatars/@Model.Avatar" id="imgAvatar" class="img-thumbnail" />
-            <div class="form-group">
-                <label asp-for="AvatarFile" class="control-label"></label>
-                <input asp-for="AvatarFile" onchange="ShowpImage(this);" class="form-control" />
-                <span asp-validation-for="AvatarFile" class="text-danger"></span>
-            </div>
-            <hr />
 
+        <!-- Avatar + Roles -->
+        <div class="col-md-5">
+
+            <!-- Avatar -->
+            <div class="bg-light p-4 rounded shadow-sm text-center mb-4">
+
+                <h6 class="mb-3">
+                    تصویر کاربر
+                </h6>
+
+                <div class="avatar-preview-wrapper">
+
+                    <img src="/Avatars/@Model.Avatar"
+                         id="imgAvatar"
+                         class="avatar-preview"
+                         alt="تصویر کاربر" />
+
+                </div>
+
+                <div class="mt-4 text-start">
+
+                    <label asp-for="AvatarFile"
+                           class="form-label fw-bold"></label>
+
+                    <input asp-for="AvatarFile"
+                           class="form-control"
+                           onchange="ShowpImage(this);" />
+
+                    <span asp-validation-for="AvatarFile"
+                          class="text-danger"></span>
+
+                </div>
+
+            </div>
+
+            <!-- Roles -->
             @if (Model.Roles.Any())
             {
-                <div class="card">
-                    <h5 class="card-header">نقش های کاربر</h5>
+                <div class="card shadow-sm">
+
+                    <h5 class="card-header">
+                        نقش های کاربر
+                    </h5>
+
                     <div class="card-body">
+
                         <div class="row">
+
                             @foreach (var item in Model.Roles)
                             {
-                                <div class="col-md mb-md-0 mb-2">
-                                    <div class="form-check custom-option custom-option-basic checked">
-                                        <label class="form-check-label custom-option-content" for="customCheckTemp3">
-                                            <input class="form-check-input" name="UserSelectedRoles" type="checkbox" value="@item.Id" @((Model.UserSelectedRoles.Any(r => r == item.Id)) ? "checked" : "")>
+                                <div class="col-12 mb-2">
+
+                                    <div class="form-check custom-option custom-option-basic">
+
+                                        <label class="form-check-label custom-option-content"
+                                               for="role_@item.Id">
+
+                                            <input class="form-check-input"
+                                                   name="UserSelectedRoles"
+                                                   type="checkbox"
+                                                   value="@item.Id"
+                                                   id="role_@item.Id"
+                                                   @((Model.UserSelectedRoles.Any(r => r == item.Id)) ? "checked" : "")>
+
                                             <span class="custom-option-header">
-                                                <span class="h6 mb-0">@item.RoleName</span>
+                                                <span class="h6 mb-0">
+                                                    @item.RoleName
+                                                </span>
                                             </span>
+
                                         </label>
+
                                     </div>
+
                                 </div>
                             }
+
                         </div>
+
                     </div>
+
                 </div>
             }
+
         </div>
-    </form>
 
-</div>
+    </div>
 
-<div>
-    <a asp-action="Index">بازگشت به لیست</a>
-    <p style="color:red">
-        @(Model.UserSelectedRoles.Any() ? string.Join(',', Model.UserSelectedRoles.ToList()) : "کاربر عادی")
-    </p>
-</div>
+</form>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
 
-        function ShowpImage(input) {
-           if (input.files && input.files[0]) {
-              var reader = new FileReader();
-              reader.onload = function (e) {
-                 $('#imgAvatar').attr('src', e.target.result);
-              }
-              reader.readAsDataURL(input.files[0]);
-           }
-        }
-
-
-    </script>
+    <script src="~/js/admin/user-edit.js"></script>
 }

@@ -15,6 +15,6 @@ namespace OnlineShop.Domain.Models.Permission
 
 
         public Permission? Parent { get; set; }
-        public ICollection<RolePermissionMapping>? RolePermissionMappings { get; set; }
+        public ICollection<RolePermissionMapping> RolePermissionMappings { get; set; }=new List<RolePermissionMapping>();
     }
 }

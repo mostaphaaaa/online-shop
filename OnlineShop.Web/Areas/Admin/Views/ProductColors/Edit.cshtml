@@ -5,52 +5,115 @@
     ViewData["Title"] = "ویرایش رنگ";
 }
 
-<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="~/css/admin/product-color-edit.css" />
 
-<h4>ProductColor</h4>
-<hr />
+<h4 class="fw-bold py-3 mb-4 text-warning">
+    @ViewData["Title"]
+</h4>
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <input type="hidden" asp-for="ProductId" />
-            <input type="hidden" asp-for="Id" />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Code" class="control-label"></label>
-                <input asp-for="Code" class="form-control" />
-                <span asp-validation-for="Code" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="ویرایش" class="btn btn-warning" />
-            </div>
-        </form>
+    <div class="col-12 col-md-7">
+
+        <div class="bg-light p-4 rounded shadow-sm">
+
+            <form asp-action="Edit">
+
+                <input type="hidden" asp-for="ProductId" />
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name"
+                           class="form-label fw-bold">
+                    </label>
+
+                    <input asp-for="Name"
+                           class="form-control" />
+
+                    <span asp-validation-for="Name"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Code"
+                           class="form-label fw-bold">
+                    </label>
+
+                    <div class="color-code-input">
+
+                        <input asp-for="Code"
+                               class="form-control"
+                               id="colorCode"
+                               placeholder="#FF0000" />
+
+                        <span id="colorPreview"
+                              class="color-preview">
+                        </span>
+
+                    </div>
+
+                    <span asp-validation-for="Code"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price"
+                           class="form-label fw-bold">
+                    </label>
+
+                    <input asp-for="Price"
+                           class="form-control" />
+
+                    <span asp-validation-for="Price"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Quantity"
+                           class="form-label fw-bold">
+                    </label>
+
+                    <input asp-for="Quantity"
+                           class="form-control" />
+
+                    <span asp-validation-for="Quantity"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+
+                    <button type="submit"
+                            class="btn btn-warning px-4">
+                        ویرایش رنگ
+                    </button>
+
+                    <a asp-action="Index"
+                       asp-route-id="@Model.ProductId"
+                       class="btn btn-label-secondary">
+                        بازگشت به لیست رنگ‌ها
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
-</div>
-<br />
-<br />
-<div>
-    <a asp-action="Index" asp-route-id="@Model.ProductId" class="btn btn-outline-reddit">بازگشت به لیست رنگ ها</a>
+
 </div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script src="~/js/admin/product-color-edit.js"></script>
 }

@@ -5,63 +5,96 @@
 @{
     ViewData["Title"] = "ویرایش دسته بندی";
 }
+<link href="~/css/admin/category-edit.css" rel="stylesheet" />
+<h1 class="text-warning mb-4">@ViewData["Title"]</h1>
 
-<h1>@ViewData["Title"]</h1>
+@if (Model.CategoryParentTitle != null)
+{
+    <div class="alert alert-warning shadow-sm">
+        <h4 class="mb-0">
+            دسته بندی اصلی : <strong class="text-primary">@Model.CategoryParentTitle</strong>
+        </h4>
+    </div>
+}
 
 <hr />
-<div class="row">
-    <form asp-action="Edit" class="row" enctype="multipart/form-data">
-        <input type="hidden" asp-for="ParentId" />
-        <input type="hidden" asp-for="CategoryId" />
-        <input type="hidden" asp-for="CreateDate" />
-        <input type="hidden" asp-for="ImageName" />
-        <input type="hidden" asp-for="CategoryParentTitle" />
-        @if (Model.CategoryParentTitle != null)
-        {
-            <div class="alert alert-warning">
-                <h4>
 
-                    <p> دسته بندی اصلی : <b style="color:red;">@Model.CategoryParentTitle</b></p>
+<form asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ParentId" />
+    <input type="hidden" asp-for="CategoryId" />
+    <input type="hidden" asp-for="CreateDate" />
+    <input type="hidden" asp-for="ImageName" />
+    <input type="hidden" asp-for="CategoryParentTitle" />
+    <div class="row mt-4 g-4">
 
-                </h4>
-            </div>
-        }
-        <div class="col-md-6">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Slug" class="control-label"></label>
-                <input asp-for="Slug" class="form-control" />
-                <span asp-validation-for="Slug" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input type="file" asp-for="Image" class="form-control" />
-                <img src="~/CategoryImages/@Model.ImageName" alt="تصویر دسته بندی" class="img img-thumbnail" style="max-width: 200px; margin-top: 10px;" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-            </div>
-            <div class="row" style="margin-top:15px;padding:40px">
+        <!-- اطلاعات -->
+        <div class="col-12 col-md-7">
 
-                <input type="submit" value="ویرایش" class="btn btn-warning btn-block" />
+            <div class="bg-light p-4 rounded shadow-sm">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Title" class="control-label fw-bold"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Slug" class="control-label fw-bold"></label>
+                    <input asp-for="Slug" class="form-control" />
+                    <span asp-validation-for="Slug" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Image" class="control-label fw-bold"></label>
+                    <input type="file" asp-for="Image" class="form-control" onchange="ShowCategoryImage(this)"/>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
 
             </div>
+
         </div>
-    </form>
-</div>
 
-<div>
-    <a asp-action="Index">بازگشت به لیست</a>
-</div>
+        <!-- تصویر -->
+               <div class="col-md-5">
+
+            <div class="bg-light p-4 rounded shadow-sm text-center">
+
+                <h6 class="mb-3">پیش نمایش تصویر</h6>
+
+                <div class="category-image-wrapper">
+                    <img src="~/CategoryImages/@Model.ImageName"
+                         id="categoryImage"
+                         class="category-image"
+                         alt="تصویر دسته بندی" />
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="mt-4 d-flex flex-wrap gap-2">
+
+        <button type="submit" class="btn btn-warning px-4">
+            ویرایش دسته بندی
+        </button>
+
+        <a asp-action="Index" class="btn btn-outline-slack">
+            بازگشت به لیست
+        </a>
+
+    </div>
+    ```
+
+</form>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script src="~/js/permission-checkboxes.js"></script>
+
+    <script src="~/js/admin/category-edit.js"></script>
 }

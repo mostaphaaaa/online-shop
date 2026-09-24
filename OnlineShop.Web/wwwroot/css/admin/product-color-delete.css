@@ -1,0 +1,14 @@
+﻿.color-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-swatch {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}

@@ -22,5 +22,6 @@ namespace OnlineShop.Application.Services.Interfaces
         Task<IEnumerable<Product>> GetTopProductsForShowAsync();
         Task<IEnumerable<Product>> GetProductsByCategorySlug(string slug);
         Task<Product> GetProductForShortDescById(int productId);
+        Task SoftDeleteProduct(int productId);
     }
 }
