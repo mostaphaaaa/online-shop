@@ -7,7 +7,7 @@ using static System.Net.WebRequestMethods;
 
 namespace OnlineShop.Web.Areas.Admin.Controllers
 {
-    public class CategoriesController(EshopDbContext _context, ICategoryService _categoryService) : AdminBaseController
+    public class CategoriesController(ICategoryService _categoryService) : AdminBaseController
     {
         public async Task<IActionResult> Index(AdminFilterCategoryViewModel filter)
         {

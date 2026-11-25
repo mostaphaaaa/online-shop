@@ -40,7 +40,8 @@ namespace OnlineShop.Application.Mapper
                 Review = model.Review,
                 Title = model.Title,
                 ShortDescription = model.ShortDescription,
-                Price = model.Price
+                Price = model.Price,
+                Slug = model.Slug
             };
         }
     }

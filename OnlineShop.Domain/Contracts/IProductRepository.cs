@@ -10,11 +10,15 @@ namespace OnlineShop.Domain.Contracts
     {
         Task<IQueryable<Product>> FilterAsync();
         Task<bool> IsExistAsync(int productId);
+        Task<string> GetSlugProduct(int productId);
         Task AddProductGalleryAsync(ProductGallery productGallery);
 
         Task AddProductTagsAsync(int productId, List<ProductTagViewModel> list);
         Task<Product> GetProductForEditInAdminAsync(int productId);
         Task<Product> GetProductForShortDescByIdAsync(int productId);
+        Task<Product> GetProductForProductPage(int productId);
+        Task<Product> GetProductBySlugAsync(string slug);
+        Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId);
         Task<IEnumerable<ProductTag>> GetAllTagsAsync(string query);
 
         Task<IEnumerable<ProductGallery>> GetProductGalleriesAsync(int productId);
@@ -27,5 +31,9 @@ namespace OnlineShop.Domain.Contracts
         Task DeleteAllProductTagsAsunc(int productId);
 
         Task <IQueryable<Product>> GetTopProductsForShowAsync();
+        Task<bool> IsExistSlugAsync(string slug);
+
+        Task AddProductCommentAsync(ProductComment productComment);
+
     }
 }

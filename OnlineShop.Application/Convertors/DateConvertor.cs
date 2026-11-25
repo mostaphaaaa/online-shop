@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MD.PersianDateTime;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -22,6 +23,12 @@ namespace OnlineShop.Application.Convertors
                 pc.GetDayOfMonth(date).ToString("00") + "-" +
                 pc.GetHour(date).ToString("00") + ":" +
                 pc.GetMinute(date).ToString("00");
+        }
+
+        public static DateTime ToMiladi( string date)
+        {
+            PersianDateTime persianDateTime = PersianDateTime.Parse(date);
+            return persianDateTime.ToDateTime();
         }
     }
 }

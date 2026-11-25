@@ -69,6 +69,7 @@ namespace OnlineShop.Application.Services.Implementation
             }
             await _categoryRepository.EditCategoryAsync(category);
             await _categoryRepository.SaveChangesAsync();
+            _cache.Remove(CacheKeyNames.GetAllCategoryForMegaMenu);
         }
 
         public async Task<AdminFilterCategoryViewModel> FilterAsync(AdminFilterCategoryViewModel filter)

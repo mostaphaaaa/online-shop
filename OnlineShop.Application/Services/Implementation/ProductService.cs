@@ -6,9 +6,11 @@ using OnlineShop.Application.Services.Interfaces;
 using OnlineShop.Application.Utilities;
 using OnlineShop.Domain.Contracts;
 using OnlineShop.Domain.Models.Products;
+using OnlineShop.Domain.Models.Users;
 using OnlineShop.Domain.ViewModels.Product;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 
@@ -99,6 +101,7 @@ namespace OnlineShop.Application.Services.Implementation
             model.IsActive = product.IsActive;
             model.ShortDescription = product.ShortDescription;
             model.Title = product.Title;
+            model.Slug = product.Slug;
 
             //if (product.Category.Parent?.Parent == null)
             //{
@@ -130,6 +133,7 @@ namespace OnlineShop.Application.Services.Implementation
             product.ShortDescription = model.ShortDescription;
             product.Review = model.Review;
             product.UpdateDate = DateTime.Now;
+            product.Slug = model.Slug;
             #endregion
 
             #region Save Product Image
@@ -278,6 +282,47 @@ namespace OnlineShop.Application.Services.Implementation
             product.IsDelete = true;
             product.DeleteDate = DateTime.Now;
             await _productRepository.SaveAsync();
+        }
+
+        public async Task<Product> GetProductForProductPage(int productId)
+        {
+            return await _productRepository.GetProductForProductPage(productId);
+        }
+
+        public async Task<bool> IsExistSlugAsync(string slug)
+        {
+            return await _productRepository.IsExistSlugAsync(slug);
+        }
+
+        public async Task<Product> GetProductBySlug(string slug)
+        {
+            return await _productRepository.GetProductBySlugAsync(slug);
+        }
+
+        public async Task<string> GetSlugProduct(int productId)
+        {
+            return await _productRepository.GetSlugProduct(productId);
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsByGroupId(int groupId)
+        {
+            return await _productRepository.GetProductsByCategoryId(groupId);
+        }
+
+        public async Task CreateProductCommentAsync(CreateCommentViewModel comment, int currentUserId)
+        {     
+
+            var productComment = new ProductComment()
+            {
+                CreateDate=DateTime.Now,
+                IsDelete=false,
+                ProductId=comment.ProductId,
+                Text=comment.Text,
+                Title=comment.Title,
+                UserId=currentUserId
+            };
+
+            await _productRepository.AddProductCommentAsync(productComment);
         }
     }
 }

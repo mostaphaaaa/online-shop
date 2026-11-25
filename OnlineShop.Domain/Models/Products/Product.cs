@@ -11,6 +11,7 @@ namespace OnlineShop.Domain.Models.Products
     {
         public int CategoryId { get; set; }
         public string Title { get; set; }
+        public string Slug { get; set; }
         public double Price { get; set; }
         public string? ShortDescription { get; set; }
         public string? Review { get; set; }
@@ -25,5 +26,6 @@ namespace OnlineShop.Domain.Models.Products
         public ICollection<ProductFeature>? ProductFeatures  { get; set; }
         public ICollection<ProductGallery>? ProductGalleries  { get; set; }
         public ICollection<ProductTag>? ProductTags { get; set; }
+        public ICollection<ProductComment>? ProductComments { get; set; }
     }
 }

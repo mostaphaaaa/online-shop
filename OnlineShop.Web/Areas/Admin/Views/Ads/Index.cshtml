@@ -1,0 +1,84 @@
+@using OnlineShop.Domain.Models.Ads
+@model IEnumerable<Ads>
+
+@{
+    ViewData["Title"] = "لیست بنر ها";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-facebook">افزودن بنر جدید</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZoneId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsBlank)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpireDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VisitCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@((item.IsDelete) ? "table-danger" : "")">
+                <td>
+                    <img class="img-thumbnail" src="/AdsImages/@item.ImageName" width="100" height="100" />
+                </td>
+                <td>
+                    @item.AdsZone?.Title
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Title)
+                </td>
+                <td>
+                    <a href="@item.Url" target="_blank">مشاهده لینک</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.IsBlank)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.IsActive)
+                </td>
+                <td>
+                    @item.StartDate?.ToShamsi()
+                </td>
+                <td>
+                    @item.ExpireDate?.ToShamsi()
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.VisitCount)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-label-warning" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
+                    <a class="btn btn-sm btn-label-danger" asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

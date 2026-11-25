@@ -190,5 +190,53 @@ namespace OnlineShop.Infra.Data.Repositories
                 .ThenInclude(p=>p.Parent)
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<Product> GetProductForProductPage(int productId)
+        {
+            return await _context.Products
+                .Include (p=>p.ProductColors)
+                .Include(p=>p.ProductFeatures)
+                .Include(p=>p.ProductGalleries)
+                .Include(p=>p.ProductTags)
+                .Include(p=>p.Category)
+                .ThenInclude(c=>c.Parent)
+                .ThenInclude(c=>c.Parent)
+                .FirstOrDefaultAsync(p=>p.Id == productId);
+        }
+        public Task<bool> IsExistSlugAsync(string slug)
+        {
+            return _context.Products.AnyAsync(p => p.Slug == slug);
+        }
+
+        public async Task<Product> GetProductBySlugAsync(string slug)
+        {
+            return await _context.Products
+                .Include(p => p.ProductColors)
+                .Include(p => p.ProductFeatures)
+                .Include(p => p.ProductGalleries)
+                .Include(p => p.ProductTags)
+                .Include(p => p.Category)
+                .ThenInclude(c => c.Parent)
+                .ThenInclude(c => c.Parent)
+                .FirstOrDefaultAsync(p => p.Slug == slug);
+        }
+
+        public async Task<string> GetSlugProduct(int productId)
+        {
+            return await _context.Products.Where(p=>p.Id==productId)
+                .Select(p=>p.Slug).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId)
+        {
+            return await _context.Products.Where(p => p.CategoryId == categoryId)
+                .ToListAsync();
+        }
+
+        public async Task AddProductCommentAsync(ProductComment productComment)
+        {
+            await _context.ProductComments.AddAsync(productComment);
+            await _context.SaveChangesAsync();
+        }
     }
 }

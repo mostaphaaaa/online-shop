@@ -12,6 +12,7 @@ namespace OnlineShop.Infra.Data.Configurations.CategoryConfig
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.Slug).IsUnique();
 
             builder.Property(x => x.Title).HasMaxLength(250).IsRequired();
             builder.Property(x => x.Slug).HasMaxLength(250).IsRequired();

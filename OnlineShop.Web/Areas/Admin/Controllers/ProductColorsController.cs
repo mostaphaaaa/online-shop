@@ -10,7 +10,6 @@ using OnlineShop.Web.Areas.Admin.Controllers;
 
 public class ProductColorsController : AdminBaseController
 {
-    private readonly EshopDbContext _context;
     private readonly IProductColorService _productColorService;
     private readonly IProductService productService;
 
@@ -37,22 +36,6 @@ public class ProductColorsController : AdminBaseController
     }
 
     // GET: PRODUCTCOLORS/Details/5
-    public async Task<IActionResult> Details(int? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var productcolor = await _context.ProductColors
-            .FirstOrDefaultAsync(m => m.Id == id);
-        if (productcolor == null)
-        {
-            return NotFound();
-        }
-
-        return View(productcolor);
-    }
 
     // GET: PRODUCTCOLORS/Create
     public IActionResult Create(int? id)

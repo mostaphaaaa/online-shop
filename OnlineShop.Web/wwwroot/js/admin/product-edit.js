@@ -1,7 +1,7 @@
 ﻿// ==============================
 // CKEditor
 // ==============================
-CKEDITOR.replace('ShortDescription');
+// CKEDITOR.replace('ShortDescription');
 CKEDITOR.replace('Review');
 CKEDITOR.replace('DetailReview');
 

@@ -101,5 +101,15 @@ namespace OnlineShop.Web.Areas.Admin.Controllers
                 value = x.TagTitle
             }));
         }
+        [HttpGet]
+        public async Task<IActionResult> IsExistSlug(string slug)
+        {
+            var exists = await _productService.IsExistSlugAsync(slug);
+
+            return Json(new
+            {
+                exists
+            });
+        }
     }
 }

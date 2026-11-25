@@ -379,6 +379,14 @@ OnlineShop.Web/wwwroot/Avatars/*
 !OnlineShop.Web/wwwroot/Avatars/.gitkeep
 !OnlineShop.Web/wwwroot/Avatars/NoPhoto.jpg
 
+OnlineShop.Web/wwwroot/Sliders/*
+!OnlineShop.Web/wwwroot/Sliders/.gitkeep
+!OnlineShop.Web/wwwroot/Sliders/NoPhoto.jpg
+
+OnlineShop.Web/wwwroot/AdsImages/*
+!OnlineShop.Web/wwwroot/AdsImages/.gitkeep
+!OnlineShop.Web/wwwroot/AdsImages/NoPhoto.jpg
+
 # EF Core Migrations
 OnlineShop.Infra.Data/Migrations/*
 !OnlineShop.Infra.Data/Migrations/.gitkeep

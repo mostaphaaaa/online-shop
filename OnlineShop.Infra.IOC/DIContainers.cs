@@ -23,6 +23,9 @@ namespace OnlineShop.Infra.IOC
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IProductFeaturesRepository, ProductFeaturesRepository>();
             services.AddScoped<IProductColorsRepository, ProductColorsRepository>();
+            services.AddScoped<ISlideRepository, SlideRepository>();
+            services.AddScoped<IAdsZoneRepository, AdsZoneRepository>();
+            services.AddScoped<IAdsRepository, AdsRepository>();
             #endregion
 
             #region Services
@@ -35,6 +38,9 @@ namespace OnlineShop.Infra.IOC
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductFeatureService, ProductFeatureService>();
             services.AddScoped<IProductColorService, ProductColorService>();
+            services.AddScoped<ISlideService, SlideService>();
+            services.AddScoped<IAdsZoneService, AdsZoneService>();
+            services.AddScoped<IAdsService, AdsService>();
             #endregion
         }
     }

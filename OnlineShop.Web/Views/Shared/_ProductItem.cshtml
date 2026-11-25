@@ -3,13 +3,13 @@
 @*line 813 index*@
 <div class="product-card">
     <div class="product-thumbnail">
-        <a href="#">
-            <img src="~/ProductImages/@Model.ImageName" style="height:150px" alt="product title">
+        <a href="/Product/@Model.Slug" title="@Model.Title">
+            <img src="~/ProductImages/@Model.ImageName" style="height:150px;max-width:100%;" alt="product title">
         </a>
     </div>
     <div class="product-card-body">
         <h2 class="product-title">
-            <a href="#">
+            <a href="/Product/@Model.Slug" title="@Model.Title" style="text-wrap:nowrap">
                 @Model.Title
             </a>
         </h2>

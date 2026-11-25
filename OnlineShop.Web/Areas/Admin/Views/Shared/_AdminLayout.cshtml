@@ -12,6 +12,7 @@
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title>@ViewBag.Title</title>
     <partial name="_HeaderRefrences" />
+    @RenderSection("HeaderRefrences", false)
 </head>
 
 <body>
@@ -74,6 +75,6 @@
 
     <!-- Page JS -->
     <script src="/AdminAssets/assets/js/dashboards-analytics.js"></script>
-    @RenderSection("Scripts",false)
+    @RenderSection("Scripts", false)
 </body>
 </html>

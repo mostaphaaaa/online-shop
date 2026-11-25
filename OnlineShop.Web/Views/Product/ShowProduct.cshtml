@@ -1,0 +1,776 @@
+﻿@using OnlineShop.Application.Services.Interfaces
+@using OnlineShop.Domain.Models.Products
+@inject IProductService productService
+@model Product
+@{
+    ViewData["Title"] = Model.Title;
+}
+@section Header
+{
+    <link rel="canonical" href="@SiteSetting.SiteAddress/Product/@Model.Slug">
+}
+<main class="page-content">
+    <div class="container">
+        <!-- start of breadcrumb -->
+        <nav class="mb-5" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                <li class="breadcrumb-item"><a href="/Category/@Model.Category?.Parent?.Parent?.Slug">@Model.Category?.Parent?.Parent?.Title</a></li>
+                <li class="breadcrumb-item"><a href="/Category/@Model.Category?.Parent?.Slug">@Model.Category?.Parent?.Title</a></li>
+                <li class="breadcrumb-item"><a href="/Category/@Model.Category?.Slug">@Model.Category?.Title</a></li>
+            </ol>
+        </nav>
+        <!-- end of breadcrumb -->
+        <!-- start of product-detail-container -->
+        <div class="product-detail-container mb-5">
+            <div class="row">
+                <div class="col-lg-4 col-md-5 mb-md-0 mb-4">
+                    <div class="ui-sticky ui-sticky-top">
+                        <!-- start of product-gallery -->
+                        <div class="product-gallery">
+                            <div class="product-options">
+                                <ul>
+                                    <!--
+                                                Add this class to enable the option => 'added'.
+                                                for example :
+                                                <li><a href="#" class="added"><i class="ri-heart-3-fill"></i></a></li>
+                                            -->
+                                    <li><a href="#"><i class="ri-heart-3-fill"></i></a></li>
+                                    <li><a href="#" data-remodal-target="share-modal"><i class="ri-share-forward-fill"></i></a></li>
+                                    <li><a href="#" data-remodal-target="notification-modal"><i class="ri-notification-fill"></i></a></li>
+                                    <li><a href="#"><i class="ri-line-chart-fill"></i></a></li>
+                                    <li><a href="#"><i class="ri-scales-3-fill"></i></a></li>
+                                    <li><a href="#"><i class="ri-play-list-add-fill"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="gallery-img-container">
+                                <div class="gallery-img">
+                                    <img src="~/ProductImages/@Model.ImageName" class="zoom-img" alt="@Model.Title" style="visibility: visible;">
+                                </div>
+                                @if (Model.ProductGalleries != null && Model.ProductGalleries.Any())
+                                {
+                                    <div class="gallery-thumbs">
+                                        <ul>
+                                            @foreach (var gallery in Model.ProductGalleries)
+                                            {
+                                                <li data-fancybox="gallery-a" data-src="/ProductImages/@gallery.ImageName"><img src="/ProductImages/Thumb/@gallery.ImageName" alt="@Model.Title"></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <!-- end of product-gallery -->
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-4 col-md-7 mb-lg-0 mb-4">
+                    <!-- start of breadcrumb -->
+                    <nav class="mb-2" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/Category/@Model.Category?.Parent?.Slug">@Model.Category?.Parent?.Title</a></li>
+                            <li class="breadcrumb-item"><a href="/Category/@Model.Category?.Slug">@Model.Category?.Title</a></li>
+                        </ol>
+                    </nav>
+                    <!-- end of breadcrumb -->
+                    <!-- start of product-detail -->
+                    <h1 class="product-title">
+                        @Model.Title
+                    </h1>
+                    <div class="product-en mb-3">
+                        <span>@Model.ShortDescription</span>
+                    </div>
+                    <div class="product-user-suggestion mb-2">
+                        <i class="ri-thumb-up-fill text-success me-1"></i>
+                        <span class="fs-7 me-2">
+                            ۷۹٪ (۱۷۰ نفر) از خریداران، این کالا را پیشنهاد کرده
+                            اند.
+                        </span>
+                        <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="خریداران کالا با انتخاب یکی از گزینه‌های پیشنهاد یا عدم پیشنهاد، تجربه خرید خود را با کاربران به اشتراک می‌گذارند." aria-label="خریداران کالا با انتخاب یکی از گزینه‌های پیشنهاد یا عدم پیشنهاد، تجربه خرید خود را با کاربران به اشتراک می‌گذارند."><i class="ri-information-line"></i></span>
+                    </div>
+                    <div class="product-user-meta fa-num mb-4">
+                        <span class="product-users-rating">
+                            <i class="ri-star-fill icon me-1"></i>
+                            <span class="fw-bold me-1">4.4</span>
+                            <span class="text-muted fs-7">(742)</span>
+                        </span>
+                        <span class="divider"></span>
+                        <a href="#" class="link border-bottom-0 fs-7">۶۳۷ دیدگاه کاربران</a>
+                        <span class="divider"></span>
+                        <a href="#" class="link border-bottom-0 fs-7">۴۰۵ پرسش و پاسخ</a>
+                    </div>
+                    <div class="product-variants-container mb-3">
+                        <div class="product-variant-selected-container">
+                            <span class="product-variant-selected-label">رنگ:</span>
+                            <span class="product-variant-selected">آبی</span>
+                        </div>
+                        <div class="product-variants">
+                            @if (Model.ProductColors != null && Model.ProductColors.Any())
+                            {
+                                @foreach (var color in Model.ProductColors)
+                                {
+                                    <div class="product-variant-item">
+                                        <div class="custom-radio-circle">
+                                            <input type="radio" class="custom-radio-circle-input" name="productColor" id="productColor@(color.Id)" checked="">
+                                            <label for="productColor@(color.Id)" class="custom-radio-circle-label" data-variant-label="@color.Name">
+                                                <span class="color" style="background-color: @color.Code;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="@color.Name" aria-label="@color.Name"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="expandable-text mb-3" style="height: 95px;">
+                        <div class="expandable-text_text">
+                            <div class="product-params">
+                                <ul>
+                                    @if (Model.ProductFeatures != null && Model.ProductFeatures.Any())
+                                    {
+                                        @foreach (var feature in Model.ProductFeatures)
+                                        {
+                                            <li>
+                                                <span class="label">@feature.Name:</span>
+                                                <span class="title">@feature.Value</span>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="expandable-text-expand-btn">
+                            <span class="show-more">
+                                بیشتر بخوانید <i class="ri-arrow-down-s-line"></i>
+                            </span>
+                            <span class="show-less d-none">
+                                بستن <i class="ri-arrow-up-s-line"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="product-additional-info-container mb-3">
+                        <span class="icon">
+                            <i class="ri-information-line"></i>
+                        </span>
+                        <div class="product-additional-info">
+                            <p>
+                                هشدار سامانه همتا: در صورت انجام معامله، از فروشنده کد فعالسازی را
+                                گرفته
+                                و حتما در حضور ایشان، دستگاه را از طریق #7777*، برای سیمکارت خود
+                                فعالسازی نمایید. آموزش تصویری در آدرس اینترنتی hmti.ir/06
+                            </p>
+                            <p>
+                                امکان برگشت کالا در گروه موبایل با دلیل "انصراف از خرید" تنها در
+                                صورتی
+                                مورد قبول است که پلمپ کالا باز نشده باشد.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="widget p-0">
+                        <div class="widget-content widget--free-shipping">
+                            <div class="free-shipping--detail">
+                                <div class="title d-flex align-items-center">
+                                    <i class="ri-truck-fill me-1"></i>
+                                    ارسال رایگان سفارش
+                                </div>
+                                <div class="subtitle">سفارش‌های بالای ۳۰۰ هزار تومان</div>
+                            </div>
+                            <div class="free-shipping--banner">
+                                <img src="~/theme-assets/images/theme/free-shipping--banner.png" alt="ارسال رایگان سفارش">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of product-detail -->
+                </div>
+                <div class="col-xl-3 col-lg-4">
+                    <div class="product-seller-info ui-box" style="margin-bottom:10px">
+                        <p style="text-align:center;margin:15px">
+                            @SiteSetting.SiteAddress/p/@Model.Id
+                        </p>
+                    </div>
+                    <!-- start of product-seller-info -->
+                    <div class="product-seller-info ui-box">
+                        <div class="seller-info-changeable">
+                            <div class="product-seller-row">
+                                <div class="product-seller-row-icon">
+                                    <!-- <i class="ri-store-3-fill"></i> -->
+                                    <img src="~/theme-assets/images/seller-logo-small.svg" alt="">
+                                </div>
+                                <div class="product-seller-row-detail">
+                                    <div class="product-seller-name mb-1">یکتاکالا</div>
+                                    <div class="seller-final-score-container">
+                                        <div class="seller-rate-container">
+                                            <span class="seller-rate fa-num">۸۸.۴٪</span>
+                                            <span class="label">رضایت خریداران</span>
+                                            <span class="divider"></span>
+                                            <span class="label">عملکرد</span>
+                                            <span class="seller-final-score">عالی</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="seller-info-link"></a>
+                                </div>
+                            </div>
+                            <div class="product-seller-row">
+                                <div class="product-seller-row-icon">
+                                    <i class="ri-shield-check-fill"></i>
+                                </div>
+                                <div class="product-seller-row-detail">
+                                    <div class="product-seller-row-detail-title">گارانتی ۱۸ ماهه</div>
+                                </div>
+                            </div>
+                            <div class="product-seller-row product-seller-row--clickable">
+                                <div class="product-seller-row-icon">
+                                    <i class="ri-checkbox-multiple-fill"></i>
+                                </div>
+                                <div class="product-seller-row-detail">
+                                    <div class="product-seller-row-detail-title"> موجود در انبار: @Model.Count</div>
+                                    <div class="product-seller-row-detail-subtitle"><i></i> آماده ارسال</div>
+                                </div>
+                            </div>
+                            <div class="product-seller-row">
+                                <div class="product-seller-row-icon">
+                                    <i class="ri-copper-coin-fill text-warning"></i>
+                                </div>
+                                <div class="product-seller-row-detail">
+                                    <div class="product-seller-row-detail-title">
+                                        ۱۵۰ امتیاز
+                                        در باشگاه مشتریان
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-seller-row product-seller-row--price">
+                                <div class="product-seller-row--price-now fa-num">
+                                    <span class="price">@Model.Price.ToString("#,0")</span>
+                                    <span class="currency">تومان</span>
+                                </div>
+                            </div>
+                            @if (Model.Count < 5 && Model.Count != 0)
+                            {
+                                <div class="product-seller-row product-remaining-in-stock">
+                                    <span>
+                                        تنها <span class="mx-2">@Model.Count</span> عدد در انبار باقیست - پیش از
+                                        اتمام بخرید
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                        @if (Model.Count >= 1)
+                        {
+                            <div class="product-seller--add-to-cart">
+                                <a href="#" class="btn btn-primary w-100" data-toast="" data-toast-type="success" data-toast-color="green" data-toast-position="topRight" data-toast-icon="ri-check-fill" data-toast-title="موفق!" data-toast-message="به سبد اضافه شد!">
+                                    افزودن به سبد خرید
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="product-seller--add-to-cart">
+                                <p class="text-danger">محصول موجود نیست</p>
+                            </div>
+                        }
+                    </div>
+                    <!-- end of product-seller-info -->
+                </div>
+            </div>
+        </div>
+        <!-- end of product-detail-container -->
+        <!-- start of box -->
+        <!-- end of box -->
+        <!-- start of box -->
+        @{
+            var products = productService.GetProductsByGroupId(Model.CategoryId).Result
+            .Where(p => p.Id != Model.Id)
+            .ToList();
+
+            bool isFirst = true;
+        }
+        @if (products != null && products.Any())
+        {
+            <div class="ui-box mb-5">
+                <div class="ui-box-title">محصولات مشابه</div>
+                <div class="ui-box-content">
+                    <!-- Slider main container -->
+                    <div class="swiper product-swiper-slider swiper-initialized swiper-horizontal swiper-pointer-events swiper-rtl">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper" id="swiper-wrapper-f27c1d3b4799a254" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
+                            <!-- Slides -->
+                            @foreach (var product in products)
+                            {
+                                <div class="swiper-slide @((isFirst) ? "swiper-slide-active" : "")" role="group" aria-label="1 / 8" style="width: 230.8px; margin-left: 10px;">
+                                    <partial name="_ProductItem" model="@product" />
+                                </div>
+                                isFirst = false;
+                            }
+                        </div>
+                        <!-- If we need pagination -->
+                        <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-bullets-dynamic" style="width: 80px;"><span class="swiper-pagination-bullet swiper-pagination-bullet-active swiper-pagination-bullet-active-main" tabindex="0" role="button" aria-label="Go to slide 1" aria-current="true" style="right: 24px;"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active-next" tabindex="0" role="button" aria-label="Go to slide 2" style="right: 24px;"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active-next-next" tabindex="0" role="button" aria-label="Go to slide 3" style="right: 24px;"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4" style="right: 24px;"></span></div>
+
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-8eff225e93b2fed5" aria-disabled="false"></div>
+                        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-8eff225e93b2fed5" aria-disabled="false"></div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- end of box -->
+        <div class="row">
+            <div class="col-xl-9 col-lg-8">
+                <div class="ui-sticky ui-sticky-top mb-4">
+                    <!-- start of product-tabs -->
+                    <div class="product-tabs">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#scrollspyHeading1" data-scroll="scrollspyHeading1">نقد و بررسی</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#scrollspyHeading2" data-scroll="scrollspyHeading2">بررسی تخصصی</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#scrollspyHeading3" data-scroll="scrollspyHeading3">مشخصات</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#scrollspyHeading4" data-scroll="scrollspyHeading4">دیدگاه کاربران</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#scrollspyHeading5" data-scroll="scrollspyHeading5">پرسش و پاسخ</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end of product-tabs -->
+                </div>
+                <!-- start of product-content-expert-summary -->
+                <div class="product-tab-content product-content-expert-summary tab-content border-bottom pb-2 mb-4" id="scrollspyHeading1">
+                    <div class="product-tab-title">
+                        <h2>نقد و بررسی اجمالی</h2>
+                    </div>
+                    <div class="expandable-text pt-1" style="height: auto;">
+                        <div class="expandable-text_text">
+                            @Html.Raw(Model.Review)
+                        </div>
+                        <div class="expandable-text-expand-btn justify-content-start text-sm">
+                            <span class="show-more active">
+                                ادامه مطلب <i class="ri-arrow-down-s-line ms-2"></i>
+                            </span>
+                            <span class="show-less d-none">
+                                مشاهده کمتر <i class="ri-arrow-up-s-line ms-2"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of product-content-expert-summary -->
+                <!-- start of product-content-expert-articles -->
+                <div class="product-tab-content product-content-expert-articles tab-content border-bottom pb-2 mb-4" id="scrollspyHeading2">
+                    <div class="product-tab-title">
+                        <h2>نقد و بررسی تخصصی</h2>
+                    </div>
+                    <div class="expandable-text pt-1" style="height: auto;">
+                        <div class="expandable-text_text">
+                            @Html.Raw(Model.DetailReview)
+                        </div>
+                        <div class="expandable-text-expand-btn justify-content-start text-sm">
+                            <span class="show-more active">
+                                نمایش کامل نقد و بررسی تخصصی <i class="ri-arrow-down-s-line ms-2"></i>
+                            </span>
+                            <span class="show-less d-none">
+                                نمایش خلاصه <i class="ri-arrow-up-s-line ms-2"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of product-content-expert-articles -->
+                <!-- start of product-params -->
+                <div class="product-tab-content product-params tab-content border-bottom pb-2 mb-4" id="scrollspyHeading3">
+                    <div class="product-tab-title">
+                        <h2>مشخصات کالا</h2>
+                    </div>
+                    <div class="expandable-text pt-1" style="height: auto;">
+                        <div class="expandable-text_text fa-num">
+                            <!-- start of params-list -->
+                            <div class="params-list">
+                                <div class="params-list-title">مشخصات کلی</div>
+                                @if (Model.ProductFeatures != null && Model.ProductFeatures.Any())
+                                {
+                                    <ul>
+                                        @foreach (var feature in Model.ProductFeatures)
+                                        {
+                                            <li>
+                                                <span class="param-title">@feature.Name</span>
+                                                <span class="param-value">@feature.Value</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                <!-- end of params-list -->
+                            </div>
+                            <div class="expandable-text-expand-btn justify-content-start text-sm">
+                                <span class="show-more active">
+                                    نمایش همه مشخصات کالا <i class="ri-arrow-down-s-line ms-2"></i>
+                                </span>
+                                <span class="show-less d-none">
+                                    فقط نمایش مشخصات کلی کالا <i class="ri-arrow-up-s-line ms-2"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of product-params -->
+                <!-- start of product-comments -->
+                <div class="product-tab-content product-comments tab-content border-bottom pb-2 mb-4" id="scrollspyHeading4">
+                    <div class="product-tab-title mb-0">
+                        <h2>امتیاز و دیدگاه کاربران</h2>
+                        <h3 class="subtitle">Samsung Galaxy M31 SM-M315F/DSN Dual SIM 128GB Mobile Phone</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-4 col-md-5 mb-3">
+                            <div class="ui-sticky ui-sticky-top pt-5 z-index-0">
+                                <!-- start of comments-sidebar -->
+                                <div class="comments-sidebar">
+                                    <div class="comments-sidebar-rating">
+                                        <div class="comments-sidebar-rating-main me-2">۴.۱</div>
+                                        <div class="comments-sidebar-rating-desc">از ۵</div>
+                                    </div>
+                                    <div class="comments-sidebar-rating-bottom">
+                                        <div class="stars-container justify-content-end">
+                                            <div class="stars-text ms-2">از مجموع ۹۴۰ امتیاز</div>
+                                            <div class="stars">
+                                                <div class="stars-val" style="width: 70%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content-expert-rating mt-4">
+                                        <div class="mb-3">
+                                            <div class="content-expert-rating-title">کیفیت ساخت</div>
+                                            <div class="content-expert-rating-value-wrapper">
+                                                <div class="content-expert-rating-value" style="width: 90%;">
+                                                </div>
+                                                <div class="content-expert-rating-value-label">۴.۱</div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="content-expert-rating-title">
+                                                ارزش خرید به نسبت قیمت
+                                            </div>
+                                            <div class="content-expert-rating-value-wrapper">
+                                                <div class="content-expert-rating-value" style="width: 90%;">
+                                                </div>
+                                                <div class="content-expert-rating-value-label">۴.۱</div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="content-expert-rating-title">نوآوری</div>
+                                            <div class="content-expert-rating-value-wrapper">
+                                                <div class="content-expert-rating-value" style="width: 90%;">
+                                                </div>
+                                                <div class="content-expert-rating-value-label">۴.۱</div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="content-expert-rating-title">امکانات و قابلیت ها</div>
+                                            <div class="content-expert-rating-value-wrapper">
+                                                <div class="content-expert-rating-value" style="width: 90%;">
+                                                </div>
+                                                <div class="content-expert-rating-value-label">۴.۱</div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="content-expert-rating-title">سهولت استفاده</div>
+                                            <div class="content-expert-rating-value-wrapper">
+                                                <div class="content-expert-rating-value" style="width: 90%;">
+                                                </div>
+                                                <div class="content-expert-rating-value-label">۴.۱</div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="content-expert-rating-title">طراحی و ظاهر</div>
+                                            <div class="content-expert-rating-value-wrapper">
+                                                <div class="content-expert-rating-value" style="width: 90%;">
+                                                </div>
+                                                <div class="content-expert-rating-value-label">۴.۱</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">دیدگاه خود را درباره این کالا بیان کنید</div>
+                                    <a asp-action="AddComment" asp-route-id="@Model.Id" class="btn btn-block btn-outline-primary">
+                                        افزودن
+                                        دیدگاه
+                                    </a>
+                                </div>
+                                <!-- end of comments-sidebar -->
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-8 col-md-7 pt-5">
+                            <!-- start of filter-comments -->
+                            <div class="filter-comments mb-4">
+                                <div class="filter-comments-title me-2">
+                                    <i class="ri-list-settings-fill me-1"></i>
+                                    <span>مرتب سازی دیدگاه ها بر اساس:</span>
+                                </div>
+                                <div class="filter-comments-options">
+                                    <button class="filter-comments-option active">جدیدترین دیدگاه ها</button>
+                                    <button class="filter-comments-option">مفیدترین دیدگاه ها</button>
+                                    <button class="filter-comments-option">دیدگاه خریداران</button>
+                                </div>
+                            </div>
+                            <!-- end of filter-comments -->
+                            <!-- start of comments -->
+                            <div class="comments">
+                                <!-- start of comment -->
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span>۱۵ تیر ۱۴۰۰</span>
+                                        <span>امیر محمد اکبرپور</span>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>
+                                            گوشی مناسبی هست نسبت به قیمتش من خودم با ایفون X مقایسه کردم که در
+                                            بعضی از برنامه ها عقب میموند بسیار گوشی خوبی هست در کل
+                                        </p>
+                                        <ul>
+                                            <li class="comment-evaluation positive">دوربین قوی</li>
+                                            <li class="comment-evaluation positive">باتری 6000</li>
+                                            <li class="comment-evaluation positive">خوش دست</li>
+                                            <li class="comment-evaluation positive">
+                                                مناسب برای کار های حدودا
+                                                سنگین و بالاتر
+                                            </li>
+                                            <li class="comment-evaluation negative">
+                                                حسگر اثر انگشت کمی ضعیفه
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="comment-footer">
+                                        <span class="me-2">آیا این دیدگاه برایتان مفید بود؟</span>
+                                        <button class="comment-like">۷</button>
+                                        <button class="comment-dislike">۲</button>
+                                    </div>
+                                </div>
+                                <!-- end of comment -->
+                                <!-- start of comment -->
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span>۱۵ تیر ۱۴۰۰</span>
+                                        <span>امیر محمد اکبرپور</span>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>
+                                            گوشی مناسبی هست نسبت به قیمتش من خودم با ایفون X مقایسه کردم که در
+                                            بعضی از برنامه ها عقب میموند بسیار گوشی خوبی هست در کل
+                                        </p>
+                                        <ul>
+                                            <li class="comment-evaluation positive">دوربین قوی</li>
+                                            <li class="comment-evaluation positive">باتری 6000</li>
+                                            <li class="comment-evaluation positive">خوش دست</li>
+                                            <li class="comment-evaluation positive">
+                                                مناسب برای کار های حدودا
+                                                سنگین و بالاتر
+                                            </li>
+                                            <li class="comment-evaluation negative">
+                                                حسگر اثر انگشت کمی ضعیفه
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="comment-footer">
+                                        <span class="me-2">آیا این دیدگاه برایتان مفید بود؟</span>
+                                        <button class="comment-like">۷</button>
+                                        <button class="comment-dislike">۲</button>
+                                    </div>
+                                </div>
+                                <!-- end of comment -->
+                                <!-- start of comment -->
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span>۱۵ تیر ۱۴۰۰</span>
+                                        <span>امیر محمد اکبرپور</span>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>
+                                            گوشی مناسبی هست نسبت به قیمتش من خودم با ایفون X مقایسه کردم که در
+                                            بعضی از برنامه ها عقب میموند بسیار گوشی خوبی هست در کل
+                                        </p>
+                                        <ul>
+                                            <li class="comment-evaluation positive">دوربین قوی</li>
+                                            <li class="comment-evaluation positive">باتری 6000</li>
+                                            <li class="comment-evaluation positive">خوش دست</li>
+                                            <li class="comment-evaluation positive">
+                                                مناسب برای کار های حدودا
+                                                سنگین و بالاتر
+                                            </li>
+                                            <li class="comment-evaluation negative">
+                                                حسگر اثر انگشت کمی ضعیفه
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="comment-footer">
+                                        <span class="me-2">آیا این دیدگاه برایتان مفید بود؟</span>
+                                        <button class="comment-like">۷</button>
+                                        <button class="comment-dislike">۲</button>
+                                    </div>
+                                </div>
+                                <!-- end of comment -->
+                                <!-- start of comment -->
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span>۱۵ تیر ۱۴۰۰</span>
+                                        <span>امیر محمد اکبرپور</span>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>
+                                            گوشی مناسبی هست نسبت به قیمتش من خودم با ایفون X مقایسه کردم که در
+                                            بعضی از برنامه ها عقب میموند بسیار گوشی خوبی هست در کل
+                                        </p>
+                                        <ul>
+                                            <li class="comment-evaluation positive">دوربین قوی</li>
+                                            <li class="comment-evaluation positive">باتری 6000</li>
+                                            <li class="comment-evaluation positive">خوش دست</li>
+                                            <li class="comment-evaluation positive">
+                                                مناسب برای کار های حدودا
+                                                سنگین و بالاتر
+                                            </li>
+                                            <li class="comment-evaluation negative">
+                                                حسگر اثر انگشت کمی ضعیفه
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="comment-footer">
+                                        <span class="me-2">آیا این دیدگاه برایتان مفید بود؟</span>
+                                        <button class="comment-like">۷</button>
+                                        <button class="comment-dislike">۲</button>
+                                    </div>
+                                </div>
+                                <!-- end of comment -->
+                                <!-- start of comment -->
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span>۱۵ تیر ۱۴۰۰</span>
+                                        <span>امیر محمد اکبرپور</span>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>
+                                            گوشی مناسبی هست نسبت به قیمتش من خودم با ایفون X مقایسه کردم که در
+                                            بعضی از برنامه ها عقب میموند بسیار گوشی خوبی هست در کل
+                                        </p>
+                                        <ul>
+                                            <li class="comment-evaluation positive">دوربین قوی</li>
+                                            <li class="comment-evaluation positive">باتری 6000</li>
+                                            <li class="comment-evaluation positive">خوش دست</li>
+                                            <li class="comment-evaluation positive">
+                                                مناسب برای کار های حدودا
+                                                سنگین و بالاتر
+                                            </li>
+                                            <li class="comment-evaluation negative">
+                                                حسگر اثر انگشت کمی ضعیفه
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="comment-footer">
+                                        <span class="me-2">آیا این دیدگاه برایتان مفید بود؟</span>
+                                        <button class="comment-like">۷</button>
+                                        <button class="comment-dislike">۲</button>
+                                    </div>
+                                </div>
+                                <!-- end of comment -->
+                                <!-- start of comment -->
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <span>۱۵ تیر ۱۴۰۰</span>
+                                        <span>امیر محمد اکبرپور</span>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>
+                                            گوشی مناسبی هست نسبت به قیمتش من خودم با ایفون X مقایسه کردم که در
+                                            بعضی از برنامه ها عقب میموند بسیار گوشی خوبی هست در کل
+                                        </p>
+                                        <ul>
+                                            <li class="comment-evaluation positive">دوربین قوی</li>
+                                            <li class="comment-evaluation positive">باتری 6000</li>
+                                            <li class="comment-evaluation positive">خوش دست</li>
+                                            <li class="comment-evaluation positive">
+                                                مناسب برای کار های حدودا
+                                                سنگین و بالاتر
+                                            </li>
+                                            <li class="comment-evaluation negative">
+                                                حسگر اثر انگشت کمی ضعیفه
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="comment-footer">
+                                        <span class="me-2">آیا این دیدگاه برایتان مفید بود؟</span>
+                                        <button class="comment-like">۷</button>
+                                        <button class="comment-dislike">۲</button>
+                                    </div>
+                                </div>
+                                <!-- end of comment -->
+                            </div>
+                            <!-- end of comments -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end of product-comments -->
+                <!-- start of product-questions -->
+                <!-- end of product-questions -->
+            </div>
+            <div class="col-xl-3 col-lg-4 d-lg-block d-none">
+                <div class="ui-sticky ui-sticky-top">
+                    <!-- start of mini-buy-box -->
+                    <div class="mini-buy-box ui-box bg-transparent p-4">
+                        <div class="d-flex border-bottom pb-3 mb-3">
+                            <div class="product-thumbnail">
+                                <img src="~/ProductImages/Thumb/@Model.ImageName" alt="product title" style="border-radius: 60px;height:62px;width:60px">
+                            </div>
+                            <div class="product-details">
+                                <div class="product-title">
+                                    <h1>
+                                        @Model.Title
+                                    </h1>
+                                </div>
+                                <div class="product-options">
+                                    <div class="product-option">
+                                        <span class="color" style="background-color:@(Model.ProductColors?.FirstOrDefault()?.Code ?? "transparent");"></span>
+                                        <span class="color-label ms-2">@(Model.ProductColors?.FirstOrDefault()?.Name ?? "")</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-features">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="ri-store-3-line text-success me-2"></i>
+                                <span>یکتاکالا</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="ri-shield-check-line text-info me-2"></i>
+                                <span>گارانتی ۱۸ ماهه آوات</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="ri-checkbox-multiple-line text-primary me-2"></i>
+                                @if (Model.Count >= 1)
+                                {
+                                    <span>موجود در انبار</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger">محصول موجود نیست</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-value">@Model.Price.ToString("#,0")</span>
+                            <span class="currency ms-1">تومان</span>
+                        </div>
+                        <a href="#" class="btn btn-block btn-primary fw-bold">
+                            افزودن به
+                            سبد خرید
+                        </a>
+                    </div>
+                    <!-- end of mini-buy-box -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- start of notification-modal -->
+    <!-- end of notification-modal -->
+    <!-- start of add-question-modal -->
+    <!-- end of add-question-modal -->
+    <!-- start of share-modal -->
+    <!-- end of share-modal -->
+    <!-- start of quick-view-modal -->
+    <!-- end of quick-view-modal -->
+</main>

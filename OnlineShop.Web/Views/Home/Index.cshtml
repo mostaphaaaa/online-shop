@@ -2,100 +2,16 @@
     ViewBag.Title = "صفحه اصلی";
 }
 <div class="container">
-    <div class="row mb-3 d-sm-block d-none">
-        <div class="col-12">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#"><img src="/theme-assets/images/banner/025.gif" alt="banner"></a>
-            </div>
-            <!-- end of banner -->
-        </div>
-    </div>
+    @await Component.InvokeAsync("Ads", new { zoneId = 1 })
     <div class="row mb-5">
         <div class="col-lg-8 mb-lg-0 mb-4">
             <!-- start of main-slider -->
-            <div class="swiper main-swiper-slider">
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide main-swiper-slide">
-                        <a href="#"
-                           style="background-image: url(/theme-assets/images/slider/main/01.jpg);">
-                            <img src="/theme-assets/images/slider/main/01.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="swiper-slide main-swiper-slide">
-                        <a href="#"
-                           style="background-image: url(/theme-assets/images/slider/main/02.jpg);">
-                            <img src="/theme-assets/images/slider/main/02.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="swiper-slide main-swiper-slide">
-                        <a href="#"
-                           style="background-image: url(/theme-assets/images/slider/main/03.jpg);">
-                            <img src="/theme-assets/images/slider/main/03.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="swiper-slide main-swiper-slide">
-                        <a href="#"
-                           style="background-image: url(/theme-assets/images/slider/main/04.jpg);">
-                            <img src="/theme-assets/images/slider/main/04.jpg" alt="">
-                        </a>
-                    </div>
-                </div>
-                <!-- If we need pagination -->
-                <div class="swiper-pagination"></div>
-
-                <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
+            @await Component.InvokeAsync("Slider")
             <!-- end of main-slider -->
         </div>
-        <div class="col-lg-4">
-            <div class="row">
-                <div class="col-lg-12 col-6 mb-lg-3">
-                    <!-- start of banner -->
-                    <div class="banner-img banner-side-main-slider bg-position-right">
-                        <a href="#"
-                           style="background-image: url(/theme-assets/images/banner/026.jpg);height:220px;">
-                            <img src="/theme-assets/images/banner/026.jpg" alt="">
-                        </a>
-                    </div>
-                    <!-- end of banner -->
-                </div>
-                <div class="col-lg-12 col-6">
-                    <!-- start of banner -->
-                    <div class="banner-img banner-side-main-slider bg-position-right">
-                        <a href="#"
-                           style="background-image: url(/theme-assets/images/banner/027.jpg);height:220px;">
-                            <img src="/theme-assets/images/banner/027.jpg" alt="">
-                        </a>
-                    </div>
-                    <!-- end of banner -->
-                </div>
-            </div>
-        </div>
+        @await Component.InvokeAsync("Ads", new { zoneId = 2 })
     </div>
-    <div class="row mb-5">
-        <div class="col-md-6 mb-lg-0 mb-3">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#">
-                    <img src="/theme-assets/images/banner/018.jpg" alt="">
-                </a>
-            </div>
-            <!-- end of banner -->
-        </div>
-        <div class="col-md-6 mb-lg-0 mb-3">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#">
-                    <img src="/theme-assets/images/banner/019.jpg" alt="">
-                </a>
-            </div>
-            <!-- end of banner -->
-        </div>
-    </div>
+    @await Component.InvokeAsync("Ads", new { zoneId = 3 })
     <!-- start of box => specials-product-slider -->
     <div class="ui-box ui-box-specials pb-3 mb-5" style="background-color: #f03426;">
         <div class="container">
@@ -747,67 +663,11 @@
     <!-- start of box => categories-slider -->
     <partial name="_CategorySlider" />
     <!-- end of box => categories-slider -->
-    <div class="row mb-5">
-        <div class="col-md-3 col-6 mb-lg-0 mb-3">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#">
-                    <img src="/theme-assets/images/banner/020.jpg" alt="">
-                </a>
-            </div>
-            <!-- end of banner -->
-        </div>
-        <div class="col-md-3 col-6 mb-lg-0 mb-3">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#">
-                    <img src="/theme-assets/images/banner/021.jpg" alt="">
-                </a>
-            </div>
-            <!-- end of banner -->
-        </div>
-        <div class="col-md-3 col-6 mb-lg-0 mb-3">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#">
-                    <img src="/theme-assets/images/banner/022.jpg" alt="">
-                </a>
-            </div>
-            <!-- end of banner -->
-        </div>
-        <div class="col-md-3 col-6 mb-lg-0 mb-3">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#">
-                    <img src="/theme-assets/images/banner/023.jpg" alt="">
-                </a>
-            </div>
-            <!-- end of banner -->
-        </div>
-    </div>
+    @await Component.InvokeAsync("Ads",new {zoneId=4})
     <!-- start of box -->
     @await Component.InvokeAsync("TopProducts")
     <!-- end of box -->
-    <div class="row mb-5">
-        <div class="col-md-6 mb-lg-0 mb-3">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#">
-                    <img src="/theme-assets/images/banner/018.jpg" alt="">
-                </a>
-            </div>
-            <!-- end of banner -->
-        </div>
-        <div class="col-md-6 mb-lg-0 mb-3">
-            <!-- start of banner -->
-            <div class="banner-img">
-                <a href="#">
-                    <img src="/theme-assets/images/banner/019.jpg" alt="">
-                </a>
-            </div>
-            <!-- end of banner -->
-        </div>
-    </div>
+    @await Component.InvokeAsync("Ads", new { zoneId = 5 })
 </div>
 <!-- start of quick-view-modal -->
 <!-- end of quick-view-modal -->

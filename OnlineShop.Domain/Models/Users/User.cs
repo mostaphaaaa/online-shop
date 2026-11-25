@@ -1,4 +1,5 @@
 ﻿using OnlineShop.Domain.Models.Common;
+using OnlineShop.Domain.Models.Products;
 using OnlineShop.Domain.Models.Roles;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace OnlineShop.Domain.Models.Users
         #region Relations
         public ICollection<UserAddress>? Addresses { get; set; }
         public ICollection<UserInRoles>? UserInRoles { get; set; }
+        public ICollection<ProductComment>? ProductComments { get; set; }
         #endregion
     }
 }

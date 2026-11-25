@@ -27,7 +27,14 @@
                     <input asp-for="Title" class="form-control" />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
-
+                <div class="form-group mb-3">
+                    <label asp-for="Slug" class="control-label fw-bold"></label>
+                    <input asp-for="Slug" class="form-control" />
+                    <span asp-validation-for="Slug" class="text-danger"></span>
+                </div>
+                <p class="form-text">
+                    راهنما:برای فاصله از _ استفاده کنید
+                </p>
                 <div class="form-group mb-3">
                     <label asp-for="Price" class="control-label fw-bold"></label>
                     <input asp-for="Price" class="form-control" />

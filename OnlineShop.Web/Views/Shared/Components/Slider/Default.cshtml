@@ -1,0 +1,23 @@
+﻿@using OnlineShop.Domain.Models.Slider
+@model IEnumerable<Slide>
+<div class="swiper main-swiper-slider">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        @foreach (var item in Model)
+        {
+            string url = item.Url != null ? $"/SlideShow/{item.Id}" : "";
+            <div class="swiper-slide main-swiper-slide">
+                <a href="@url" target="@((item.IsBlank) ? "_blank" : "")"
+                   style="background-image: url(/Sliders/@item.ImageName);">
+                    <img src="/Sliders/@item.ImageName" alt="@item.Title">
+                </a>
+            </div>
+        }
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
